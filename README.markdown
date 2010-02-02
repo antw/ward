@@ -50,6 +50,7 @@ Object validation inspired by RSpec.
       validates do |object|
         object.subdomain.length.is(2..50)
         object.has.at_least(5).posts
+        object.owner.name.is("Rincewind")
       end
     end
 
