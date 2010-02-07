@@ -1,4 +1,6 @@
 --exclude "spec"
+--exclude "activesupport"
+--exclude "rcov"
 --sort coverage
 --callsites
 --xrefs

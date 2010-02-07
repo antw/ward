@@ -19,7 +19,7 @@ begin
     gem.has_rdoc    = false
 
     # Dependencies.
-    gem.add_dependency 'active_support', '>= 3.0.pre'
+    gem.add_dependency 'active_support', '>= 3.0.0.beta'
 
     # Development dependencies.
     gem.add_development_dependency 'rspec',     '>= 1.3.0'

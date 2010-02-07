@@ -7,3 +7,4 @@ require 'active_support/inflections'
 # On with the library...
 require 'luggage/context'
 require 'luggage/context_chain'
+require 'luggage/matchers'

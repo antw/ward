@@ -26,8 +26,7 @@ describe Luggage::ContextChain do
     it 'should add a context to the end of the chain' do
       chain = Luggage::ContextChain.new
       new_context = Luggage::Context.new(:length)
-
-      chain.contexts.should be_empty
+      chain.to_a.should be_empty
       chain.push(new_context)
       chain.to_a.should eql([new_context])
     end
