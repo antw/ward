@@ -7,6 +7,7 @@ require 'luggage/matchers/include'
 require 'luggage/matchers/match'
 require 'luggage/matchers/nil'
 require 'luggage/matchers/present'
+require 'luggage/matchers/satisfy'
 
 module Luggage
   module Matchers; end
