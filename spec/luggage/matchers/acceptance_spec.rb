@@ -11,37 +11,37 @@ describe Luggage::Matchers::Acceptance do
       @matcher = Luggage::Matchers::Acceptance.new
     end
 
-    it 'should return false when given nil' do
-      @matcher.matches?(nil).should be_false
+    it 'should fail when given nil' do
+      @matcher.should fail_matcher_with(nil)
     end
 
-    it 'should return false when given false' do
-      @matcher.matches?(false).should be_false
+    it 'should fail when given false' do
+      @matcher.should fail_matcher_with(false)
     end
 
-    it 'should return false when given 0' do
-      @matcher.matches?(0).should be_false
+    it 'should fail when given 0' do
+      @matcher.should fail_matcher_with(0)
     end
 
     # String negatives.
     %w( 0 n no false N NO FALSE ).each do |value|
-      it "should return false when given #{value.inspect}" do
-        @matcher.matches?(value).should be_false
+      it "should fail when given #{value.inspect}" do
+        @matcher.should fail_matcher_with(value)
       end
     end
 
-    it 'should return true when given true' do
-      @matcher.matches?(true).should be_true
+    it 'should pass when given true' do
+      @matcher.should pass_matcher_with(true)
     end
 
-    it 'should return true when given 1' do
-      @matcher.matches?(1).should be_true
+    it 'should pass when given 1' do
+      @matcher.should pass_matcher_with(1)
     end
 
     # String positives.
     %w( 1 y yes true Y YES TRUE ).each do |value|
-      it "should return true when given #{value.inspect}" do
-        @matcher.matches?(value).should be_true
+      it "should pass when given #{value.inspect}" do
+        @matcher.should pass_matcher_with(value)
       end
     end
   end # matches?

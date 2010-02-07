@@ -11,53 +11,53 @@ describe Luggage::Matchers::Present do
       @matcher = Luggage::Matchers::Present.new
     end
 
-    it 'should return false when given nil' do
-      @matcher.matches?(nil).should be_false
+    it 'should fail when given nil' do
+      @matcher.should fail_matcher_with(nil)
     end
 
-    it 'should return false when given false' do
-      @matcher.matches?(false).should be_false
+    it 'should fail when given false' do
+      @matcher.should fail_matcher_with(false)
     end
 
-    it 'should return true when given true' do
-      @matcher.matches?(true).should be_true
+    it 'should pass when given true' do
+      @matcher.should pass_matcher_with(true)
     end
 
-    it 'should return true when given a Symbol' do
-      @matcher.matches?(:symbol).should be_true
+    it 'should pass when given a Symbol' do
+      @matcher.should pass_matcher_with(:symbol)
     end
 
     describe 'when given a Numeric' do
-      it 'should return true when 0' do
-        @matcher.matches?(0).should be_true
+      it 'should pass when 0' do
+        @matcher.should pass_matcher_with(0)
       end
 
-      it 'should return true when 0.0' do
-        @matcher.matches?(0.0).should be_true
+      it 'should pass when 0.0' do
+        @matcher.should pass_matcher_with(0.0)
       end
 
-      it 'should return true when 1' do
-        @matcher.matches?(1).should be_true
+      it 'should pass when 1' do
+        @matcher.should pass_matcher_with(1)
       end
 
-      it 'should return true when 01' do
-        @matcher.matches?(01).should be_true
+      it 'should pass when 01' do
+        @matcher.should pass_matcher_with(01)
       end
     end
 
     describe 'when given a String' do
-      it 'should return false when the string is empty' do
-        @matcher.matches?('').should be_false
+      it 'should fail when the string is empty' do
+        @matcher.should fail_matcher_with('')
       end
 
-      it 'should return false when the string contains only whitespace' do
-        @matcher.matches?('  ').should be_false
-        @matcher.matches?("\t").should be_false
-        @matcher.matches?("\n").should be_false
+      it 'should fail when the string contains only whitespace' do
+        @matcher.should fail_matcher_with('  ')
+        @matcher.should fail_matcher_with("\t")
+        @matcher.should fail_matcher_with("\n")
       end
 
-      it 'should return true when the string is non-empty' do
-        @matcher.matches?('hello').should be_true
+      it 'should pass when the string is non-empty' do
+        @matcher.should pass_matcher_with('hello')
       end
     end
 
@@ -66,14 +66,14 @@ describe Luggage::Matchers::Present do
         @actual = Object.new
       end
 
-      it 'should return true if #empty? is false' do
+      it 'should pass if #empty? is false' do
         @actual.should_receive(:empty?).and_return(false)
-        @matcher.matches?(@actual).should be_true
+        @matcher.should pass_matcher_with(@actual)
       end
 
-      it 'should return false if #empty? is true' do
+      it 'should fail if #empty? is true' do
         @actual.should_receive(:empty?).and_return(true)
-        @matcher.matches?(@actual).should be_false
+        @matcher.should fail_matcher_with(@actual)
       end
     end
   end # matches?

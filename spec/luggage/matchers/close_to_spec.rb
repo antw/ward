@@ -46,40 +46,40 @@ describe Luggage::Matchers::CloseTo do
         @matcher = Luggage::Matchers::CloseTo.new(10, 5)
       end
 
-      it 'should return true if given 10' do
-        @matcher.matches?(10).should be_true
+      it 'should pass if given 10' do
+        @matcher.should pass_matcher_with(10)
       end
 
-      it 'should return true if given 5' do
-        @matcher.matches?(5).should be_true
+      it 'should pass if given 5' do
+        @matcher.should pass_matcher_with(5)
       end
 
-      it 'should return true if given 15' do
-        @matcher.matches?(5).should be_true
+      it 'should pass if given 15' do
+        @matcher.should pass_matcher_with(5)
       end
 
-      it 'should return true if given 12.5' do
-        @matcher.matches?(12.5).should be_true
+      it 'should pass if given 12.5' do
+        @matcher.should pass_matcher_with(12.5)
       end
 
-      it 'should return true if given 7.5' do
-        @matcher.matches?(7.5).should be_true
+      it 'should pass if given 7.5' do
+        @matcher.should pass_matcher_with(7.5)
       end
 
-      it 'should return false if given 4' do
-        @matcher.matches?(4).should be_false
+      it 'should fail if given 4' do
+        @matcher.should fail_matcher_with(4)
       end
 
-      it 'should return false if given 16' do
-        @matcher.matches?(16).should be_false
+      it 'should fail if given 16' do
+        @matcher.should fail_matcher_with(16)
       end
 
-      it 'should return false if given 0' do
-        @matcher.matches?(0).should be_false
+      it 'should fail if given 0' do
+        @matcher.should fail_matcher_with(0)
       end
 
-      it 'should return false if given -10' do
-        @matcher.matches?(-10).should be_false
+      it 'should fail if given -10' do
+        @matcher.should fail_matcher_with(-10)
       end
     end
 
@@ -88,20 +88,20 @@ describe Luggage::Matchers::CloseTo do
         @matcher = Luggage::Matchers::CloseTo.new(10, 0)
       end
 
-      it 'should return true if given 10' do
-        @matcher.matches?(10).should be_true
+      it 'should pass if given 10' do
+        @matcher.should pass_matcher_with(10)
       end
 
-      it 'should return false if given 9.9' do
-        @matcher.matches?(9.9).should be_false
+      it 'should fail if given 9.9' do
+        @matcher.should fail_matcher_with(9.9)
       end
 
-      it 'should return false if given 10.1' do
-        @matcher.matches?(10.1).should be_false
+      it 'should fail if given 10.1' do
+        @matcher.should fail_matcher_with(10.1)
       end
 
-      it 'should return false if given 0' do
-        @matcher.matches?(0).should be_false
+      it 'should fail if given 0' do
+        @matcher.should fail_matcher_with(0)
       end
     end
 
@@ -110,32 +110,32 @@ describe Luggage::Matchers::CloseTo do
         @matcher = Luggage::Matchers::CloseTo.new(10, 0.5)
       end
 
-      it 'should return true if given 10' do
-        @matcher.matches?(10).should be_true
+      it 'should pass if given 10' do
+        @matcher.should pass_matcher_with(10)
       end
 
-      it 'should return true if given 10.5' do
-        @matcher.matches?(10.5).should be_true
+      it 'should pass if given 10.5' do
+        @matcher.should pass_matcher_with(10.5)
       end
 
-      it 'should return true if given 9.5' do
-        @matcher.matches?(9.5).should be_true
+      it 'should pass if given 9.5' do
+        @matcher.should pass_matcher_with(9.5)
       end
 
-      it 'should return false if given 10.6' do
-        @matcher.matches?(10.6).should be_false
+      it 'should fail if given 10.6' do
+        @matcher.should fail_matcher_with(10.6)
       end
 
-      it 'should return false if given 9.4' do
-        @matcher.matches?(9.4).should be_false
+      it 'should fail if given 9.4' do
+        @matcher.should fail_matcher_with(9.4)
       end
 
-      it 'should return false if given 0' do
-        @matcher.matches?(0).should be_false
+      it 'should fail if given 0' do
+        @matcher.should fail_matcher_with(0)
       end
 
-      it 'should return false if given 11' do
-        @matcher.matches?(11).should be_false
+      it 'should fail if given 11' do
+        @matcher.should fail_matcher_with(11)
       end
     end
 
@@ -144,36 +144,36 @@ describe Luggage::Matchers::CloseTo do
         @matcher = Luggage::Matchers::CloseTo.new(0.5, 0.1)
       end
 
-      it 'should return true if given 0.5' do
-        @matcher.matches?(0.5).should be_true
+      it 'should pass if given 0.5' do
+        @matcher.should pass_matcher_with(0.5)
       end
 
-      it 'should return true if given 0.4' do
-        @matcher.matches?(0.4).should be_true
+      it 'should pass if given 0.4' do
+        @matcher.should pass_matcher_with(0.4)
       end
 
-      it 'should return true if given 0.6' do
-        @matcher.matches?(0.6).should be_true
+      it 'should pass if given 0.6' do
+        @matcher.should pass_matcher_with(0.6)
       end
 
-      it 'should return false if given 0.7' do
-        @matcher.matches?(0.7).should be_false
+      it 'should fail if given 0.7' do
+        @matcher.should fail_matcher_with(0.7)
       end
 
-      it 'should return false if given 0.3' do
-        @matcher.matches?(0.3).should be_false
+      it 'should fail if given 0.3' do
+        @matcher.should fail_matcher_with(0.3)
       end
 
-      it 'should return false if given 0' do
-        @matcher.matches?(0).should be_false
+      it 'should fail if given 0' do
+        @matcher.should fail_matcher_with(0)
       end
 
-      it 'should return false if given 1' do
-        @matcher.matches?(1).should be_false
+      it 'should fail if given 1' do
+        @matcher.should fail_matcher_with(1)
       end
 
-      it 'should return false if given -0.5' do
-        @matcher.matches?(-0.5).should be_false
+      it 'should fail if given -0.5' do
+        @matcher.should fail_matcher_with(-0.5)
       end
     end
   end # matches?

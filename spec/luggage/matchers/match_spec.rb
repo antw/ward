@@ -12,13 +12,12 @@ describe Luggage::Matchers::Match do
         @matcher = Luggage::Matchers::Match.new('Michael Scarn')
       end
 
-      it 'should return true when the actual value matches the expectation' do
-        @matcher.matches?('My name is Michael Scarn').should be_true
+      it 'should pass when the actual value matches the expectation' do
+        @matcher.should pass_matcher_with('My name is Michael Scarn')
       end
 
-      it 'should return true when the actual value does not match ' \
-         'the expectation' do
-        @matcher.matches?('My name is Samuel L. Chang').should be_false
+      it 'should fail when the actual value does not match the expectation' do
+        @matcher.should fail_matcher_with('My name is Samuel L. Chang')
       end
     end
 
@@ -27,13 +26,12 @@ describe Luggage::Matchers::Match do
         @matcher = Luggage::Matchers::Match.new(/Michael Scarn/)
       end
 
-      it 'should return true when the actual value matches the expectation' do
-        @matcher.matches?('My name is Michael Scarn').should be_true
+      it 'should pass when the actual value matches the expectation' do
+        @matcher.should pass_matcher_with('My name is Michael Scarn')
       end
 
-      it 'should return true when the actual value does not match ' \
-         'the expectation' do
-        @matcher.matches?('My name is Samuel L. Chang').should be_false
+      it 'should fail when the actual value does not match the expectation' do
+        @matcher.should fail_matcher_with('My name is Samuel L. Chang')
       end
     end
   end # matches?

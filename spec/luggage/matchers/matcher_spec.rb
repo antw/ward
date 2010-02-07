@@ -51,7 +51,7 @@ describe Luggage::Matchers::Matcher do
       @matcher = Luggage::Matchers::Matcher.new(1)
     end
 
-    it 'should return true' do
+    it 'should pass' do
       @matcher.matches?(nil).should be_true
     end
   end

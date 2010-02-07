@@ -31,14 +31,12 @@ describe Luggage::Matchers::Include do
       @matcher  = Luggage::Matchers::Include.new([0, 1, 2])
     end
 
-    it 'should return true if the actual value is included in ' \
-       'the expectation' do
-      @matcher.matches?(1).should be_true
+    it 'should pass if the actual value is included in the expectation' do
+      @matcher.should pass_matcher_with(1)
     end
 
-    it 'should return true if the actual value is not included ' \
-       'in the expectation' do
-      @matcher.matches?(3).should be_false
+    it 'should fail if the actual value is not included in the expectation' do
+      @matcher.should fail_matcher_with(3)
     end
   end # matches?
 

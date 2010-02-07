@@ -28,16 +28,16 @@ describe Luggage::Matchers::Satisfy do
         end
       end
 
-      it 'should return true if the block returns true' do
-        @matcher.matches?('Rincewind').should == true
+      it 'should pass if the block returns true' do
+        @matcher.should pass_matcher_with('Rincewind')
       end
 
-      it 'should return true if the block returns nil' do
-        @matcher.matches?('nil').should == true
+      it 'should pass if the block returns nil' do
+        @matcher.should pass_matcher_with('nil')
       end
 
-      it 'should return false if the block returns false' do
-        @matcher.matches?('__no_match__').should == false
+      it 'should fail if the block returns false' do
+        @matcher.should fail_matcher_with('__no_match__')
       end
     end
 
@@ -46,24 +46,24 @@ describe Luggage::Matchers::Satisfy do
         @matcher = Luggage::Matchers::Satisfy.new(:validator_method)
       end
 
-      it 'should return true if the method whose name matches the Symbol ' \
+      it 'should pass if the method whose name matches the Symbol ' \
          'returns true' do
         pending "Awaiting validation DSL" do
-          @matcher.matches?('Rincewind').should == true
+          @matcher.should pass_matcher_with('Rincewind')
         end
       end
 
-      it 'should return true if the method whose name matches the Symbol ' \
+      it 'should pass if the method whose name matches the Symbol ' \
          'returns nil' do
         pending "Awaiting validation DSL" do
-          @matcher.matches?('nil').should == true
+          @matcher.should pass_matcher_with('nil')
         end
       end
 
-      it 'should return false if the method whose name matches the Symbol ' \
+      it 'should fail if the method whose name matches the Symbol ' \
          'returns false' do
         pending "Awaiting validation DSL" do
-          @matcher.matches?('__no_match__').should == false
+          @matcher.should fail_matcher_with('__no_match__')
         end
       end
     end
