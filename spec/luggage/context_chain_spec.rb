@@ -29,7 +29,7 @@ describe Luggage::ContextChain do
 
       chain.contexts.should be_empty
       chain.push(new_context)
-      chain.contexts.should eql([new_context])
+      chain.to_a.should eql([new_context])
     end
   end
 
