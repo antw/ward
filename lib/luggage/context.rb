@@ -7,6 +7,7 @@ module Luggage
   # target object.
   #
   class Context
+
     # Returns the name of the attribute to be validated.
     #
     # @return [Symbol]
