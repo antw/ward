@@ -12,14 +12,21 @@ module Luggage
       #
       attr_reader :expected
 
+      # Returns any extra arguments given to the matcher.
+      #
+      # @return [Array]
+      #
+      attr_reader :extra_args
+
       # Creates a new matcher instance.
       #
       # @param [Object] expected
       #   The expected value for the matcher.
       #
-      def initialize(expected = nil)
-        @expected = expected
-        @actual   = nil
+      def initialize(expected = nil, *extra_args)
+        @expected   = expected
+        @extra_args = extra_args
+        @actual     = nil
       end
 
       # Returns whether the given value matches the expected value.

@@ -1,4 +1,5 @@
 require 'luggage/matchers/matcher'
+require 'luggage/matchers/close_to'
 require 'luggage/matchers/equal_to'
 require 'luggage/matchers/exclude'
 require 'luggage/matchers/include'
