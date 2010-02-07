@@ -32,29 +32,35 @@ Object validation inspired by RSpec.
       include Luggage::Validation
       attr_accessor :name, :subdomain, :posts
 
-      validates(:name).length.is(2..100)
+      validate(:name).length.is(2..100)
 
       # or
 
-      validates(:subdomain).has(2..50).characters
+      validate(:subdomain).has(2..50).characters
 
       # or
 
-      validates(:subdomain) do |subdomain|
+      validate(:subdomain) do |subdomain|
         subdomain.length.is(2..50)
-        subdomain.format.with(/\A[a-z][a-z0-9\-]*[a-z0-9]\Z/)
+        subdomain.matches(/\A[a-z][a-z0-9\-]*[a-z0-9]\Z/)
       end
 
       # or
 
-      validates do |object|
+      validate do |object|
         object.subdomain.length.is(2..50)
         object.has.at_least(5).posts
         object.owner.name.is("Rincewind")
       end
     end
 
-Note: None of this actually works at the moment. To describe Luggage as being in the early-stages of development would be to make a pretty extraordinary understatement.
+### Current Status
+
+To describe Luggage as being in the early-stages of development would be to
+make a pretty extraordinary understatement. None of the code snippet in the
+preceding section actually works at the moment. I'm focusing on getting the
+underlying data structures in place before finishing off with the (tricky)
+task of creating the DSL.
 
 ### Note on Patches/Pull Requests
 
