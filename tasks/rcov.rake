@@ -1,5 +1,6 @@
 begin
   require 'rcov'
+  require 'spec/rake/spectask'
   require 'spec/rake/verify_rcov'
 
   Spec::Rake::SpecTask.new(:rcov) do |rcov|
