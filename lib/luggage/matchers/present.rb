@@ -39,7 +39,7 @@ module Luggage
       #
       def matches?(actual)
         if actual.kind_of?(String)
-          actual =~ /\S/
+          not actual.match(/\S/).nil?
         elsif actual.respond_to?(:empty?)
           not actual.empty?
         else
