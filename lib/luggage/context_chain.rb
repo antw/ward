@@ -2,9 +2,9 @@ module Luggage
   # ContextChain combines one or more contexts in order to be able to retrieve
   # values from composed objects.
   #
-  # For example, if the chain contains two context, the first with a `:length`
-  # attribute, and the second with a `:to_s` attribute, the chain would
-  # resolve to calling `target.length.to_s` in order to retrieve a value for
+  # For example, if the chain contains two contexts, the first with a +length+
+  # attribute, and the second with a +to_s+ attribute, the chain would resolve
+  # to calling +target.length.to_s+ in order to retrieve a value for
   # validation.
   #
   class ContextChain
