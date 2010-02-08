@@ -28,6 +28,13 @@ describe Luggage::Matchers::CloseTo do
       end
     end
 
+    describe 'when given a numeric as the second, but not first, argument' do
+      it 'should raise an error' do
+        running_this = lambda { Luggage::Matchers::CloseTo.new('', 1) }
+        running_this.should raise_exception(ArgumentError)
+      end
+    end
+
     describe 'when given only one argument' do
       it 'should raise an error' do
         running_this = lambda { Luggage::Matchers::CloseTo.new(1) }
