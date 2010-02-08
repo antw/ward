@@ -150,15 +150,15 @@ describe "Luggage RSpec matcher" do
         it 'should fail when the matcher returns false' do
           @matcher.should_receive(:matches?).and_return(false)
 
-          running = lambda { @matcher.should fail_matcher_with('') }
-          running.should_not raise_exception(@exception)
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should raise_exception(@exception)
         end
 
         it 'should fail when the matcher returns [false, ...]' do
           @matcher.should_receive(:matches?).and_return([false])
 
-          running = lambda { @matcher.should fail_matcher_with('') }
-          running.should_not raise_exception(@exception)
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should raise_exception(@exception)
         end
       end # with "should_not"
     end # with no error expectation
