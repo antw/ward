@@ -26,18 +26,38 @@ describe "Luggage RSpec matcher matcher" do
     end
 
     describe 'when given an invalid value' do
-      it 'should be fail when using "should"' do
-        @matcher.should_receive(:matches?).with('invalid').and_return(false)
+      describe 'and the matcher returns false' do
+        it 'should be fail when using "should"' do
+          @matcher.should_receive(:matches?).with('invalid').and_return(false)
 
-        running = lambda { @matcher.should pass_matcher_with('invalid') }
-        running.should raise_exception(@exception)
+          running = lambda { @matcher.should pass_matcher_with('invalid') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should be pass when using "should not"' do
+          @matcher.should_receive(:matches?).with('invalid').and_return(false)
+
+          running = lambda { @matcher.should_not pass_matcher_with('invalid') }
+          running.should_not raise_exception(@exception)
+        end
       end
 
-      it 'should be pass when using "should not"' do
-        @matcher.should_receive(:matches?).with('invalid').and_return(false)
+      describe 'and the matcher returns an array with false as the first element' do
+        it 'should be fail when using "should"' do
+          @matcher.should_receive(:matches?).with('invalid').
+            and_return([false, :error_message])
 
-        running = lambda { @matcher.should_not pass_matcher_with('invalid') }
-        running.should_not raise_exception(@exception)
+          running = lambda { @matcher.should pass_matcher_with('invalid') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should be pass when using "should not"' do
+          @matcher.should_receive(:matches?).with('invalid').
+            and_return([false, :error_message])
+
+          running = lambda { @matcher.should_not pass_matcher_with('invalid') }
+          running.should_not raise_exception(@exception)
+        end
       end
     end
   end # pass_matcher_with
@@ -59,19 +79,41 @@ describe "Luggage RSpec matcher matcher" do
       end
     end
 
-    describe 'when given an invalid value' do
-      it 'should pass when using "should"' do
-        @matcher.should_receive(:matches?).with('invalid').and_return(false)
+    # double-negatives make my head hurt.
 
-        running = lambda { @matcher.should fail_matcher_with('invalid') }
-        running.should_not raise_exception(@exception)
+    describe 'when given an invalid value' do
+      describe 'and the matcher returns false' do
+        it 'should pass when using "should"' do
+          @matcher.should_receive(:matches?).with('invalid').and_return(false)
+
+          running = lambda { @matcher.should fail_matcher_with('invalid') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should fail when using "should not"' do
+          @matcher.should_receive(:matches?).with('invalid').and_return(false)
+
+          running = lambda { @matcher.should_not fail_matcher_with('invalid') }
+          running.should raise_exception(@exception)
+        end
       end
 
-      it 'should fail when using "should not"' do
-        @matcher.should_receive(:matches?).with('invalid').and_return(false)
+      describe 'and the matcher returns an array with false as the first element' do
+        it 'should be pass when using "should"' do
+          @matcher.should_receive(:matches?).with('invalid').
+            and_return([false, :error_message])
 
-        running = lambda { @matcher.should_not fail_matcher_with('invalid') }
-        running.should raise_exception(@exception)
+          running = lambda { @matcher.should fail_matcher_with('invalid') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should be fail when using "should not"' do
+          @matcher.should_receive(:matches?).with('invalid').
+            and_return([false, :error_message])
+
+          running = lambda { @matcher.should_not fail_matcher_with('invalid') }
+          running.should raise_exception(@exception)
+        end
       end
     end
   end # fail_matcher_with

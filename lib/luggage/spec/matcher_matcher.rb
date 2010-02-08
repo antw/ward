@@ -13,7 +13,11 @@ module Luggage
       #
       ::Spec::Matchers.define :pass_matcher_with do |value|
         match do |matcher|
-          matcher.matches?(value)
+          case result = matcher.matches?(value)
+            when false then false
+            when Array then result.first
+            else            true
+          end
         end
 
         failure_message_for_should do |matcher|
@@ -32,7 +36,11 @@ module Luggage
       #
       ::Spec::Matchers.define :fail_matcher_with do |value|
         match do |matcher|
-          not matcher.matches?(value)
+          case result = matcher.matches?(value)
+            when false then true
+            when Array then not result.first
+            else            not result
+          end
         end
 
         failure_message_for_should do |matcher|
