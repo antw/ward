@@ -1,120 +1,189 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
-describe "Luggage RSpec matcher matcher" do
+describe "Luggage RSpec matcher" do
+
   before(:each) do
     @exception = Spec::Expectations::ExpectationNotMetError
     @matcher   = Object.new
-
-    @matcher.stub!(:expected).and_return('expected')
+    @matcher.stub!(:expected).and_return('')
   end
 
   describe 'pass_matcher_with' do
-    describe 'when given a valid value' do
-      it 'should be pass when using "should"' do
-        @matcher.should_receive(:matches?).with('valid').and_return(true)
+    describe 'with "should"' do
+      it 'should pass when the matcher returns true' do
+        @matcher.should_receive(:matches?).and_return(true)
 
-        running = lambda { @matcher.should pass_matcher_with('valid') }
+        running = lambda { @matcher.should pass_matcher_with('') }
         running.should_not raise_exception(@exception)
       end
 
-      it 'should be fail when using "should not"' do
-        @matcher.should_receive(:matches?).with('valid').and_return(true)
+      it 'should pass when the matcher returns nil' do
+        @matcher.should_receive(:matches?).and_return(nil)
 
-        running = lambda { @matcher.should_not pass_matcher_with('valid') }
+        running = lambda { @matcher.should pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
+      it 'should pass when the matcher returns an arbitrary object' do
+        @matcher.should_receive(:matches?).and_return(Object.new)
+
+        running = lambda { @matcher.should pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
+      it 'should fail when the matcher returns false' do
+        @matcher.should_receive(:matches?).and_return(false)
+
+        running = lambda { @matcher.should pass_matcher_with('') }
         running.should raise_exception(@exception)
       end
-    end
 
-    describe 'when given an invalid value' do
-      describe 'and the matcher returns false' do
-        it 'should be fail when using "should"' do
-          @matcher.should_receive(:matches?).with('invalid').and_return(false)
+      it 'should fail when the matcher returns [false, ...]' do
+        @matcher.should_receive(:matches?).and_return([false])
 
-          running = lambda { @matcher.should pass_matcher_with('invalid') }
-          running.should raise_exception(@exception)
-        end
-
-        it 'should be pass when using "should not"' do
-          @matcher.should_receive(:matches?).with('invalid').and_return(false)
-
-          running = lambda { @matcher.should_not pass_matcher_with('invalid') }
-          running.should_not raise_exception(@exception)
-        end
+        running = lambda { @matcher.should pass_matcher_with('') }
+        running.should raise_exception(@exception)
       end
 
-      describe 'and the matcher returns an array with false as the first element' do
-        it 'should be fail when using "should"' do
-          @matcher.should_receive(:matches?).with('invalid').
-            and_return([false, :error_message])
+    end # with "should"
 
-          running = lambda { @matcher.should pass_matcher_with('invalid') }
-          running.should raise_exception(@exception)
-        end
+    describe 'with "should_not"' do
+      it 'should fail when the matcher returns true' do
+        @matcher.should_receive(:matches?).and_return(true)
 
-        it 'should be pass when using "should not"' do
-          @matcher.should_receive(:matches?).with('invalid').
-            and_return([false, :error_message])
-
-          running = lambda { @matcher.should_not pass_matcher_with('invalid') }
-          running.should_not raise_exception(@exception)
-        end
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should raise_exception(@exception)
       end
-    end
+
+      it 'should fail when the matcher returns nil' do
+        @matcher.should_receive(:matches?).and_return(nil)
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should raise_exception(@exception)
+      end
+
+      it 'should fail when the matcher returns an arbitrary object' do
+        @matcher.should_receive(:matches?).and_return(Object.new)
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should raise_exception(@exception)
+      end
+
+      it 'should pass when the matcher returns false' do
+        @matcher.should_receive(:matches?).and_return(false)
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
+      it 'should pass when the matcher returns [false, ...]' do
+        @matcher.should_receive(:matches?).and_return([false])
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
+    end # with "should_not"
   end # pass_matcher_with
 
   describe 'fail_matcher_with' do
-    describe 'when given a valid value' do
-      it 'should fail when using "should"' do
-        @matcher.should_receive(:matches?).with('valid').and_return(true)
+    describe 'with no error expectation' do
+      describe 'with "should"' do
+        it 'should fail when the matcher returns true' do
+          @matcher.should_receive(:matches?).and_return(true)
 
-        running = lambda { @matcher.should fail_matcher_with('valid') }
-        running.should raise_exception(@exception)
-      end
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should raise_exception(@exception)
+        end
 
-      it 'should pass when using "should not"' do
-        @matcher.should_receive(:matches?).with('valid').and_return(true)
+        it 'should fail when the matcher returns nil' do
+          @matcher.should_receive(:matches?).and_return(nil)
 
-        running = lambda { @matcher.should_not fail_matcher_with('valid') }
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should fail when the matcher returns an arbitrary object' do
+          @matcher.should_receive(:matches?).and_return(Object.new)
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should pass when the matcher returns false' do
+          @matcher.should_receive(:matches?).and_return(false)
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should pass when the matcher returns [false, ...]' do
+          @matcher.should_receive(:matches?).and_return([false])
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+      end # with "should"
+
+      describe 'with "should_not"' do
+        it 'should pass when the matcher returns true' do
+          @matcher.should_receive(:matches?).and_return(true)
+
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should pass when the matcher returns nil' do
+          @matcher.should_receive(:matches?).and_return(nil)
+
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should pass when the matcher returns an arbitrary object' do
+          @matcher.should_receive(:matches?).and_return(Object.new)
+
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should fail when the matcher returns false' do
+          @matcher.should_receive(:matches?).and_return(false)
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should fail when the matcher returns [false, ...]' do
+          @matcher.should_receive(:matches?).and_return([false])
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+      end # with "should_not"
+    end # with no error expectation
+
+    describe 'with an error expectation' do
+      it 'should pass when the actual error matches the expected error' do
+        @matcher.should_receive(:matches?).and_return([false, :e])
+
+        running = lambda {
+          @matcher.should fail_matcher_with('').with_error(:e)
+        }
+
         running.should_not raise_exception(@exception)
       end
-    end
 
-    # double-negatives make my head hurt.
+      it 'should fail when the actual error does not match the expected error' do
+        @matcher.should_receive(:matches?).and_return([false, :e])
 
-    describe 'when given an invalid value' do
-      describe 'and the matcher returns false' do
-        it 'should pass when using "should"' do
-          @matcher.should_receive(:matches?).with('invalid').and_return(false)
+        running = lambda {
+          @matcher.should fail_matcher_with('').with_error(:whoops)
+        }
 
-          running = lambda { @matcher.should fail_matcher_with('invalid') }
-          running.should_not raise_exception(@exception)
-        end
-
-        it 'should fail when using "should not"' do
-          @matcher.should_receive(:matches?).with('invalid').and_return(false)
-
-          running = lambda { @matcher.should_not fail_matcher_with('invalid') }
-          running.should raise_exception(@exception)
-        end
+        running.should raise_exception(@exception)
       end
-
-      describe 'and the matcher returns an array with false as the first element' do
-        it 'should be pass when using "should"' do
-          @matcher.should_receive(:matches?).with('invalid').
-            and_return([false, :error_message])
-
-          running = lambda { @matcher.should fail_matcher_with('invalid') }
-          running.should_not raise_exception(@exception)
-        end
-
-        it 'should be fail when using "should not"' do
-          @matcher.should_receive(:matches?).with('invalid').
-            and_return([false, :error_message])
-
-          running = lambda { @matcher.should_not fail_matcher_with('invalid') }
-          running.should raise_exception(@exception)
-        end
-      end
-    end
+    end # with an error expectation
   end # fail_matcher_with
+
 end
