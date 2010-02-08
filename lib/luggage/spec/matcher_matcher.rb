@@ -2,11 +2,27 @@ module Luggage
   module Spec
     module MatcherMatcher
 
-      EXPECTED_PASS = "expected %s matcher to pass (expected: %s, " \
-                      "actual: %s), but it failed"
+      # Formats error messages for spec failures.
+      #
+      # @param [String, Symbol] result
+      #   Did you expect a :pass or :fail?
+      # @param [Luggage::Matchers::Matcher] matcher
+      #   The matcher instance which was used for the expectation.
+      # @param [Object] value
+      #   The actual value which was supplied to the Luggage matcher.
+      #
+      # @return [String]
+      #
+      def self.error_message(result, matcher, value)
+        status = if result.to_sym == :pass then 'failed' else 'passed' end
 
-      EXPECTED_FAIL = "expected %s matcher to fail (expected: %s, " \
-                      "actual: %s), but it passed"
+        expected = unless matcher.expected.nil?
+          "expected: #{matcher.expected.inspect}, "
+        end
+
+        "expected #{matcher.class.inspect} to #{result}, but it #{status} " \
+        "(#{expected}actual: #{value.inspect})"
+      end
 
       # An RSpec matcher which tests that the Luggage matcher passes with a
       # particular value.
@@ -21,13 +37,11 @@ module Luggage
         end
 
         failure_message_for_should do |matcher|
-          Luggage::Spec::MatcherMatcher::EXPECTED_PASS % [
-            matcher.class.inspect, matcher.expected.inspect, value.inspect ]
+          Luggage::Spec::MatcherMatcher.error_message(:pass, matcher, value)
         end
 
         failure_message_for_should_not do |matcher|
-          Luggage::Spec::MatcherMatcher::EXPECTED_FAIL % [
-            matcher.class.inspect, matcher.expected.inspect, value.inspect ]
+          Luggage::Spec::MatcherMatcher.error_message(:fail, matcher, value)
         end
       end
 
@@ -44,13 +58,11 @@ module Luggage
         end
 
         failure_message_for_should do |matcher|
-          Luggage::Spec::MatcherMatcher::EXPECTED_FAIL % [
-            matcher.class.inspect, matcher.expected.inspect, value.inspect ]
+          Luggage::Spec::MatcherMatcher.error_message(:fail, matcher, value)
         end
 
         failure_message_for_should_not do |matcher|
-          Luggage::Spec::MatcherMatcher::EXPECTED_PASS % [
-            matcher.class.inspect, matcher.expected.inspect, value.inspect ]
+          Luggage::Spec::MatcherMatcher.error_message(:pass, matcher, value)
         end
       end
 
