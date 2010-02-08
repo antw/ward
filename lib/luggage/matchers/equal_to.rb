@@ -3,6 +3,16 @@ module Luggage
     # Tests whether the validation value is equal in value to -- but not
     # necessarily the same object as -- the expected value.
     #
+    # @example
+    #
+    #   class Person
+    #     validate(:name).is.equal_to('Michael Scarn')
+    #   end
+    #
+    # @todo
+    #   Once the validator DSL is is available, amend the class documentation
+    #   to provide an example of how to call +is+ and +is_not+ with a value.
+    #
     class EqualTo < Matcher
 
       # Returns whether the given value is equal to the expected value.

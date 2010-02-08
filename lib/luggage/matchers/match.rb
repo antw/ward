@@ -1,7 +1,13 @@
 module Luggage
   module Matchers
-    # Tests whether the validation value matches the expected value (with a
-    # regular expression).
+    # Tests whether the validation value matches the expected value with a
+    # regular expression.
+    #
+    # @example
+    #
+    #   class Person
+    #     validate(:name).matches(/^Michael (Scarn|Scott)$/)
+    #   end
     #
     class Match < Matcher
 

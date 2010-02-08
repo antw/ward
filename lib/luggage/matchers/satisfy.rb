@@ -15,12 +15,12 @@ module Luggage
     #       value == 'Michael Scarn'
     #     end
     #   end
-    # 
+    #
     # @example Matching with a Symbol and method
-    # 
+    #
     #   class Record
     #     validate(:name).satisfies(:require_michael_scarn)
-    # 
+    #
     #     def require_michael_scarn
     #       name == 'Michael Scarn'
     #     end
@@ -34,7 +34,7 @@ module Luggage
       #   The expected value for the matcher.
       #
       def initialize(expected = nil, *extra_args, &block)
-        super(block_given? ? block : expected, *extra_args)
+        super((block or expected), *extra_args)
       end
 
       # Returns whether the given value is satisfied by the expected block.

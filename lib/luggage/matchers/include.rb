@@ -2,6 +2,15 @@ module Luggage
   module Matchers
     # Tests whether the validation value is contained in the expected value.
     #
+    # The expected value can be anything which responds to +include?+; if it
+    # returns true, the matcher will pass.
+    #
+    # @example Person role is either :admin or :staff
+    #
+    #   class Person
+    #     validate(:role).is.in([:admin, :staff])
+    #   end
+    #
     class Include < Matcher
 
       # Creates a new Include matcher instance.

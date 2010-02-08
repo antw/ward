@@ -3,6 +3,12 @@ module Luggage
     # Tests whether the validation value is within the delta of the expected
     # value.
     #
+    # @example Validating that the estimate attribute is 10 (+- 5).
+    #
+    #   class Price
+    #     validate(:estimate).is.close_to(10, 5)
+    #   end
+    #
     class CloseTo < Matcher
 
       # Creates a new CloseTo matcher instance.

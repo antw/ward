@@ -1,6 +1,15 @@
 module Luggage
   module Matchers
-    # Tests whether the validation value is present.
+    # Tests whether the validation value is accepted.
+    #
+    # An "accepted" value one which is exactly true, "t", "true", "1", "y",
+    # or "yes".
+    #
+    # @example
+    #
+    #   class Person
+    #     validate(:terms).is.accepted
+    #   end
     #
     class Acceptance < Matcher
 
@@ -15,9 +24,7 @@ module Luggage
         super
       end
 
-      # Returns whether the given value is "accepted".
-      #
-      # An "accepted" value is true, "t", "true", "1", "y", "yes".
+      # Returns whether the given value is accepted.
       #
       # @param [Object] actual
       #   The validation value.
