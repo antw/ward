@@ -20,8 +20,8 @@ module Luggage
       #
       def initialize(expected, delta, *extra_args)
         raise ArgumentError,
-          'The CloseTo matcher requires that a Numeric +expected+ value ' \
-          'is supplied' unless expected.kind_of?(Numeric)
+          'The CloseTo matcher requires that the +expected+ value ' \
+          'responds to +-+' unless expected.respond_to?(:-)
 
         raise ArgumentError,
           'The CloseTo matcher requires that a Numeric +delta+ value ' \

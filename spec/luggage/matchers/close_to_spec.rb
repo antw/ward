@@ -183,6 +183,60 @@ describe Luggage::Matchers::CloseTo do
         @matcher.should fail_matcher_with(-0.5)
       end
     end
+
+    describe 'when the expected value is a Date with a delta of 1' do
+      before(:all) do
+        @date    = Date.today
+        @matcher = Luggage::Matchers::CloseTo.new(@date, 1)
+      end
+
+      it 'should pass if given the date' do
+        @matcher.should pass_matcher_with(@date)
+      end
+
+      it 'should pass if given the previous day' do
+        @matcher.should pass_matcher_with(@date - 1)
+      end
+
+      it 'should pass if given the next day' do
+        @matcher.should pass_matcher_with(@date + 1)
+      end
+
+      it 'should fail if given two days prior' do
+        @matcher.should fail_matcher_with(@date - 2)
+      end
+
+      it 'should fail if given two days hence' do
+        @matcher.should fail_matcher_with(@date + 2)
+      end
+    end
+
+    describe 'when the expected value is a Time with a delta of 30' do
+      before(:all) do
+        @time    = Time.now
+        @matcher = Luggage::Matchers::CloseTo.new(@time, 30)
+      end
+
+      it 'should pass if given the time' do
+        @matcher.should pass_matcher_with(@time)
+      end
+
+      it 'should pass if given 30 seconds prior' do
+        @matcher.should pass_matcher_with(@time - 30)
+      end
+
+      it 'should pass if given 30 seconds hence' do
+        @matcher.should pass_matcher_with(@time + 30)
+      end
+
+      it 'should fail if given 31 seconds prior' do
+        @matcher.should fail_matcher_with(@time - 31)
+      end
+
+      it 'should fail if given 31 seconds hence' do
+        @matcher.should fail_matcher_with(@time + 31)
+      end
+    end
   end # matches?
 
 end
