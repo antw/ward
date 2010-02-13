@@ -10,6 +10,10 @@ require 'spec/autorun'
 require 'luggage'
 require 'luggage/spec'
 
+# Spec libraries.
+spec_libs = Dir.glob(File.expand_path(File.dirname(__FILE__)) + '/lib/**/*.rb')
+spec_libs.each { |file| require file }
+
 Spec::Runner.configure do |config|
 
 end
