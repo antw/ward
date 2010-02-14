@@ -62,11 +62,19 @@ module Luggage
 
       # Creates a new matcher instance.
       #
+      # If no expected value is provided, the matcher will default to
+      # expecting that the collection has at_least(1).
+      #
       # @param [Object] expected
       #   The expected value for the matcher.
       #
-      def initialize(*args)
-        super
+      def initialize(expected = nil, *extra_args)
+        if expected.nil?
+          @relativity = :gte
+          super(1, *extra_args)
+        else
+          super
+        end
       end
 
       # Returns whether the given value is satisfied by the expected block.
@@ -213,6 +221,9 @@ module Luggage
 
       # Sets the relativity and the expected value.
       #
+      # Also marks that a relativity has been set, preventing another one from
+      # being set in the future.
+      #
       # @param [Symbol] relativity
       #   The relativity to set.
       # @param [Numeric] expected
@@ -221,14 +232,12 @@ module Luggage
       # @return [Luggage::Matchers::Has]
       #   Returns self.
       #
-      # @raise
-      #
       def set_relativity(relativity, expected)
         raise RuntimeError,
           "A relativity (#{@relativity}) was already set; you cannot " \
-          "set another" unless @relativity.nil?
+          "set another" if @relativity_set
 
-        @relativity, @expected = relativity, expected
+        @relativity, @expected, @relativity_set = relativity, expected, true
         self
       end
 

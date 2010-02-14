@@ -125,6 +125,20 @@ describe Luggage::Matchers::Has do
   #
 
   describe '#matches?' do
+    describe 'when no expected value is set' do
+      before(:all) do
+        @matcher = Luggage::Matchers::Has.new
+      end
+
+      it 'should pass if the collection has > 0 members' do
+        @matcher.should pass_matcher_with(mock(:size => 1))
+      end
+
+      it 'should fail if the collection has 0 members' do
+        @matcher.should fail_matcher_with(mock(:size => 0))
+      end
+    end
+
     describe "with no collection name" do
 
       describe 'when no relativity is set' do # defaults to :eql
