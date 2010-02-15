@@ -19,9 +19,10 @@ module Luggage
       #   The expected value for the matcher.
       #
       def initialize(expected = nil, *extra_args)
-        @@_include_matcher ||= Include.new(%w( t true y yes 1 ) + [1])
+        expected = Array(expected || %w( t true y yes 1 ) + [1])
+        @include_matcher = Include.new(expected)
 
-        super
+        super(expected, *extra_args)
       end
 
       # Returns whether the given value is accepted.
@@ -32,13 +33,7 @@ module Luggage
       # @return [Boolean]
       #
       def matches?(actual)
-        if actual == true or actual == false
-          actual
-        elsif actual.respond_to?(:to_s)
-          @@_include_matcher.matches?(actual.to_s.downcase)
-        else
-          false
-        end
+        actual == true or @include_matcher.matches?(actual)
       end
 
     end # Acceptance
