@@ -15,6 +15,16 @@ module Luggage
       @contexts = []
     end
 
+    # Returns the name of the attribute to be validated.
+    #
+    # Returns the attribute for the first context.
+    #
+    # @return [Symbol]
+    #
+    def attribute
+      @contexts.first.attribute
+    end
+
     # Returns the 'natural name' of the contained contexts.
     #
     # @return [String]

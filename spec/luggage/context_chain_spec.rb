@@ -3,7 +3,31 @@ require File.expand_path('../../spec_helper', __FILE__)
 describe Luggage::ContextChain do
 
   #
-  # contexts
+  # attribute
+  #
+
+  it 'should respond to #attribute' do
+    Luggage::ContextChain.new.should respond_to(:attribute)
+  end
+
+  describe '#attribute' do
+    before(:all) do
+      @chain = Luggage::ContextChain.new
+      @chain.push(Luggage::Context.new(:name))
+      @chain.push(Luggage::Context.new(:length))
+    end
+
+    it 'should return a symbol' do
+      @chain.attribute.should be_a(Symbol)
+    end
+
+    it "should return the first Context's attribute" do
+      @chain.attribute.should == :name
+    end
+  end
+
+  #
+  # to_a
   #
 
   it 'should respond to #to_a' do
