@@ -32,7 +32,7 @@ module Luggage
       @context, @matcher, @scenarios = context, matcher, scenarios
     end
 
-    # Determines if the validator is value for the given record.
+    # Determines if the validator is valid for the given record.
     #
     # @param [Object] record
     #   The object whose attribute is to be validated.
