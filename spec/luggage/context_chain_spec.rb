@@ -1,14 +1,13 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
 describe Luggage::ContextChain do
+  subject { Luggage::ContextChain }
 
   #
   # attribute
   #
 
-  it 'should respond to #attribute' do
-    Luggage::ContextChain.new.should respond_to(:attribute)
-  end
+  it { should have_public_method_defined(:attribute) }
 
   describe '#attribute' do
     before(:all) do
@@ -30,21 +29,14 @@ describe Luggage::ContextChain do
   # to_a
   #
 
-  it 'should respond to #to_a' do
-    Luggage::ContextChain.new.should respond_to(:to_a)
-  end
+  it { should have_public_method_defined(:to_a) }
 
   #
   # push
   #
 
-  it 'should respond to #push' do
-    Luggage::ContextChain.new.should respond_to(:push)
-  end
-
-  it 'should respond to #<<' do
-    Luggage::ContextChain.new.should respond_to(:<<)
-  end
+  it { should have_public_method_defined(:push) }
+  it { should have_public_method_defined(:<<) }
 
   describe '#push' do
     it 'should add a context to the end of the chain' do
@@ -60,9 +52,7 @@ describe Luggage::ContextChain do
   # natural name
   #
 
-  it 'should respond to #natural_name' do
-    Luggage::ContextChain.new.should respond_to(:natural_name)
-  end
+  it { should have_public_method_defined(:natural_name) }
 
   describe '#natural_name' do
     describe 'when the chain contains a single context' do
@@ -93,9 +83,7 @@ describe Luggage::ContextChain do
   # value
   #
 
-  it 'should respond to #value' do
-    Luggage::ContextChain.new.should respond_to(:value)
-  end
+  it { should have_public_method_defined(:value) }
 
   describe '#value' do
     describe 'when the chain contains a single context' do

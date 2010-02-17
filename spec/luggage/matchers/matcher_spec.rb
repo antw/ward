@@ -1,10 +1,9 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::Matcher do
+  subject { Luggage::Matchers::Matcher }
 
-  it 'should respond to #expected' do
-    Luggage::Matchers::Matcher.new(1).should respond_to(:extra_args)
-  end
+  it { should have_public_method_defined(:extra_args) }
 
   #
   # initialize
@@ -24,9 +23,7 @@ describe Luggage::Matchers::Matcher do
   # expected
   #
 
-  it 'should respond to #expected' do
-    Luggage::Matchers::Matcher.new(1).should respond_to(:expected)
-  end
+  it { should have_public_method_defined(:expected) }
 
   describe '#expected' do
     before(:each) do
@@ -42,9 +39,7 @@ describe Luggage::Matchers::Matcher do
   # matches?
   #
 
-  it 'should respond to #matches?' do
-    Luggage::Matchers::Matcher.new(1).should respond_to(:matches?)
-  end
+  it { should have_public_method_defined(:matches?) }
 
   describe '#matches?' do
     before(:each) do

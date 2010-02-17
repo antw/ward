@@ -1,15 +1,13 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
 describe Luggage::Validator do
+  subject { Luggage::Validator }
 
   #
   # context
   #
 
-  it 'should respond to #context' do
-    methods = Luggage::Validator.public_instance_methods.map { |s| s.to_sym }
-    methods.should include(:context)
-  end
+  it { should have_public_method_defined(:context) }
 
   describe '#context' do
     before(:all) do
@@ -25,10 +23,7 @@ describe Luggage::Validator do
   # matcher
   #
 
-  it 'should respond to #matcher' do
-    methods = Luggage::Validator.public_instance_methods.map { |s| s.to_sym }
-    methods.should include(:matcher)
-  end
+  it { should have_public_method_defined(:matcher) }
 
   describe '#matcher' do
     before(:all) do
@@ -44,10 +39,7 @@ describe Luggage::Validator do
   # valid?
   #
 
-  it 'should respond to #valid?' do
-    methods = Luggage::Validator.public_instance_methods.map { |s| s.to_sym }
-    methods.should include(:valid?)
-  end
+  it { should have_public_method_defined(:valid?) }
 
   describe '#valid?' do
     before(:all) do
@@ -84,10 +76,7 @@ describe Luggage::Validator do
   # scenarios
   #
 
-  it 'should respond to #scenarios' do
-    methods = Luggage::Validator.public_instance_methods.map { |s| s.to_sym }
-    methods.should include(:scenarios)
-  end
+  it { should have_public_method_defined(:scenarios) }
 
   describe '#scenarios' do
     before(:all) do
@@ -103,10 +92,7 @@ describe Luggage::Validator do
   # scenario?
   #
 
-  it 'should respond to #scenario?' do
-    methods = Luggage::Validator.public_instance_methods.map { |s| s.to_sym }
-    methods.should include(:scenario?)
-  end
+  it { should have_public_method_defined(:scenario?) }
 
   describe '#scenario?' do
     it 'should return true when the validator exists in a given scenario' do

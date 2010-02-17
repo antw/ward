@@ -1,14 +1,13 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
 describe Luggage::Context do
+  subject { Luggage::Context }
 
   #
   # attribute
   #
 
-  it 'should respond to #attribute' do
-    Luggage::Context.new(:full_name).should respond_to(:attribute)
-  end
+  it { should have_public_method_defined(:attribute) }
 
   describe '#attribute' do
     subject do
@@ -23,9 +22,7 @@ describe Luggage::Context do
   # natural name
   #
 
-  it 'should respond to #natural_name' do
-    Luggage::Context.new(:full_name).should respond_to(:natural_name)
-  end
+  it { should have_public_method_defined(:natural_name) }
 
   describe '#natural_name' do
     subject do
@@ -39,6 +36,8 @@ describe Luggage::Context do
   #
   # value
   #
+
+  it { should have_public_method_defined(:value) }
 
   describe '#value' do
     describe 'when the matcher has a custom value fetcher' do
