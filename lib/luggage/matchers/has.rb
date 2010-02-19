@@ -101,9 +101,9 @@ module Luggage
         end
 
         case @relativity
-          when :eql, nil then actual == @expected
-          when :lte      then actual <= @expected
-          when :gte      then actual >= @expected
+          when :eql, nil then actual == (@expected == :no ? 0 : @expected)
+          when :lte      then actual <=  @expected
+          when :gte      then actual >=  @expected
           when :between  then @expected.include?(actual)
           else                false
         end

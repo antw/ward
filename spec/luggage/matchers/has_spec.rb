@@ -269,6 +269,20 @@ describe Luggage::Matchers::Has do
       end # and the value responds to ##{method}
     end # [size, length].each
 
+    describe 'when the expected value is :no' do
+      before(:all) do
+        @matcher = Luggage::Matchers::Has.new(:no).characters
+      end
+
+      it 'should pass with when the owner has 0 members' do
+        @matcher.should pass_matcher_with([])
+      end
+
+      it 'should fail when the owner has more than 0 members' do
+        @matcher.should fail_matcher_with([:a])
+      end
+    end
+
     it 'should raise an error if the collection is nil' do
       matcher = Luggage::Matchers::Has.new.eql(5)
 
