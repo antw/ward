@@ -42,7 +42,8 @@ module Luggage
     #   whose first element is false, and second element is an error message.
     #
     def valid?(record)
-      @matcher.matches?(@context.value(record)) || [false]
+      result, error = @matcher.matches?(@context.value(record))
+      result
     end
 
     # Returns if the validator should be run as part of the given scenario.

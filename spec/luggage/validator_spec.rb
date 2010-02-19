@@ -59,12 +59,22 @@ describe Luggage::Validator do
         @result = @validator.valid?(mock(:name => ''))
       end
 
-      it 'should return an array' do
-        @result.should be_an(Array)
+      it 'should return false' do
+        @result.should be_false
       end
 
-      it 'should use false as the first element' do
-        @result.first.should be_false
+      # Perhaps this is one for Cucumber?
+      it 'should add the error to the record errors'
+    end
+
+    describe 'when the matcher fails and return an error' do
+      before(:all) do
+        @validator.matcher.stub(:matches?).and_return([false, :error])
+        @result = @validator.valid?(mock(:name => ''))
+      end
+
+      it 'should return false' do
+        @result.should be_false
       end
 
       # Perhaps this is one for Cucumber?
