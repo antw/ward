@@ -86,6 +86,16 @@ describe Luggage::ContextChain do
   it { should have_public_method_defined(:value) }
 
   describe '#value' do
+    describe 'when the chain contains no context' do
+      before(:all) do
+        @chain = Luggage::ContextChain.new
+      end
+
+      it 'should return the given object' do
+        @chain.value('this').should == 'this'
+      end
+    end
+
     describe 'when the chain contains a single context' do
       before(:all) do
         @chain =  Luggage::ContextChain.new

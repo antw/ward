@@ -53,8 +53,10 @@ module Luggage
           "something along the way evaluated to nil" if resolved.nil?
 
         @contexts.last.value(resolved)
-      else
+      elsif @contexts.size == 1
         @contexts.first.value(target)
+      else
+        target
       end
     end
 
