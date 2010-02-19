@@ -2,6 +2,11 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::Exclude do
 
+  it 'should be registered with :excluded_from' do
+    matcher = Luggage::Matchers.matchers[:excluded_from]
+    matcher.should == Luggage::Matchers::Exclude
+  end
+
   #
   # initialize
   #

@@ -2,6 +2,16 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::Satisfy do
 
+  it 'should be registered with :satisfies' do
+    matcher = Luggage::Matchers.matchers[:satisfies]
+    matcher.should == Luggage::Matchers::Satisfy
+  end
+
+  it 'should be registered with :satisfy' do
+    matcher = Luggage::Matchers.matchers[:satisfy]
+    matcher.should == Luggage::Matchers::Satisfy
+  end
+
   it 'should supply the attribute value to to the block' do
     Luggage::Matchers::Satisfy.new do |value, record|
       value.should == 'Rincewind'

@@ -2,6 +2,11 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::CloseTo do
 
+  it 'should be registered with :close_to' do
+    matcher = Luggage::Matchers.matchers[:close_to]
+    matcher.should == Luggage::Matchers::CloseTo
+  end
+
   #
   # initialize
   #

@@ -2,6 +2,20 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::Has do
 
+  it 'should be registered with :has' do
+    matcher = Luggage::Matchers.matchers[:has]
+    matcher.should == Luggage::Matchers::Has
+  end
+
+  it 'should be registered with :have' do
+    matcher = Luggage::Matchers.matchers[:have]
+    matcher.should == Luggage::Matchers::Has
+  end
+
+  #
+  # Collections.
+  #
+
   describe 'when setting a collection' do
     before(:all) do
       @matcher = Luggage::Matchers::Has.new(1)

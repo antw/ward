@@ -2,6 +2,11 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Luggage::Matchers::Include do
 
+  it 'should be registered with :included_in' do
+    matcher = Luggage::Matchers.matchers[:included_in]
+    matcher.should == Luggage::Matchers::Include
+  end
+
   #
   # initialize
   #

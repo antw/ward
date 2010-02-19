@@ -58,5 +58,21 @@ module Luggage
       @matchers ||= {}
     end
 
+    # Register the built-in matchers.
+
+    register :accepted,      Acceptance
+    register :close_to,      CloseTo
+    register :equal_to,      EqualTo
+    register :excluded_from, Exclude
+    register :has,           Has
+    register :have,          Has
+    register :included_in,   Include
+    register :matches,       Match
+    register :match,         Match
+    register :nil,           Nil
+    register :present,       Present
+    register :satisfies,     Satisfy
+    register :satisfy,       Satisfy
+
   end
 end # Luggage
