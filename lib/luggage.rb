@@ -7,6 +7,12 @@ require 'active_support/inflections'
 # On with the library...
 require 'luggage/context'
 require 'luggage/context_chain'
+require 'luggage/dsl'
 require 'luggage/matchers'
 require 'luggage/validator'
 require 'luggage/validator_set'
+
+module Luggage
+  # Raise when a validator couldn't be built as something was missing.
+  class IncompleteValidator < StandardError; end
+end
