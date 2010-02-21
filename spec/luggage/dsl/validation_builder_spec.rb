@@ -12,56 +12,69 @@ describe Luggage::DSL::ValidationBuilder do
       @builder = Luggage::DSL::ValidationBuilder.new
     end
 
-    it "should return an Acceptance matcher when calling #accepted" do
-      @builder.accepted.should be_a(Luggage::Matchers::Acceptance)
+    it "should set an Acceptance matcher when calling #accepted" do
+      validator = @builder.accepted.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Acceptance)
     end
 
-    it "should return a CloseTo matcher when calling #close_to" do
-      @builder.close_to(1, 1).should be_a(Luggage::Matchers::CloseTo)
+    it "should set a CloseTo matcher when calling #close_to" do
+      validator = @builder.close_to(1, 1).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::CloseTo)
     end
 
-    it "should return an EqualTo matcher when calling #equal_to" do
-      @builder.equal_to(1).should be_a(Luggage::Matchers::EqualTo)
+    it "should set an EqualTo matcher when calling #equal_to" do
+      validator = @builder.equal_to(1).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::EqualTo)
     end
 
-    it "should return an Exclude matcher when calling #excluded_from" do
-      @builder.excluded_from([]).should be_a(Luggage::Matchers::Exclude)
+    it "should set an Exclude matcher when calling #excluded_from" do
+      validator = @builder.excluded_from([]).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Exclude)
     end
 
-    it "should return a Has matcher when calling #has" do
-      @builder.has.should be_a(Luggage::Matchers::Has)
+    it "should set a Has matcher when calling #has" do
+      validator = @builder.has.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Has)
     end
 
-    it "should return a Has matcher when calling #have" do
-      @builder.have(1, 1).should be_a(Luggage::Matchers::Has)
+    it "should set a Has matcher when calling #have" do
+      validator = @builder.have(1, 1).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Has)
     end
 
-    it "should return an Include matcher when calling #included_in" do
-      @builder.included_in([]).should be_a(Luggage::Matchers::Include)
+    it "should set an Include matcher when calling #included_in" do
+      validator = @builder.included_in([]).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Include)
     end
 
-    it "should return a Match matcher when calling #matches" do
-      @builder.matches(//).should be_a(Luggage::Matchers::Match)
+    it "should set a Match matcher when calling #matches" do
+      validator = @builder.matches(//).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Match)
     end
 
-    it "should return a Match matcher when calling #match" do
-      @builder.match(//).should be_a(Luggage::Matchers::Match)
+    it "should set a Match matcher when calling #match" do
+      validator = @builder.match(//).to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Match)
     end
 
-    it "should return a Nil matcher when calling #nil" do
-      @builder.nil.should be_a(Luggage::Matchers::Nil)
+    it "should set a Nil matcher when calling #nil" do
+      validator = @builder.nil.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Nil)
     end
 
-    it "should return a Present matcher when calling #present" do
-      @builder.present.should be_a(Luggage::Matchers::Present)
+    it "should set a Present matcher when calling #present" do
+      validator = @builder.present.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Present)
     end
 
-    it "should return an Satisfy matcher when calling #satisfies" do
-      @builder.satisfies.should be_a(Luggage::Matchers::Satisfy)
+    it "should set a Satisfy matcher when calling #satisfies" do
+      validator = @builder.satisfies.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Satisfy)
     end
 
-    it "should return an Satisfy matcher when calling #satisfy" do
-      @builder.satisfy.should be_a(Luggage::Matchers::Satisfy)
+    it "should set a Satisfy matcher when calling #satisfy" do
+      validator = @builder.satisfy.to_validator
+      validator.matcher.should be_a(Luggage::Matchers::Satisfy)
     end
   end
 
