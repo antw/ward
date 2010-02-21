@@ -52,7 +52,7 @@ module Luggage
     #
     def initialize(context, matcher, options = {})
       @context, @matcher = context, matcher
-      @scenarios = Array(options.fetch(:scenarios, :default))
+      @scenarios = Array(options[:scenarios] || :default)
       @message = options[:message]
     end
 

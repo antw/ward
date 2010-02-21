@@ -96,6 +96,45 @@ describe Luggage::DSL::ValidationBuilder do
   end
 
   #
+  # when setting a scenario
+  #
+
+  describe '#scenario' do
+    before(:each) do
+      @builder = Luggage::DSL::ValidationBuilder.new.present
+    end
+
+    it 'should return the builder' do
+      @builder.scenario(:scenario).should be(@builder)
+    end
+
+    it 'should set the validation scenario' do
+      validator = @builder.scenario(:scenario).to_validator
+      validator.scenarios.should == [:scenario]
+    end
+  end
+
+  describe '#scenarios' do
+    before(:each) do
+      @builder = Luggage::DSL::ValidationBuilder.new.present
+    end
+
+    it 'should return the builder' do
+      @builder.scenarios([:scenario]).should be(@builder)
+    end
+
+    it 'should set multiple scenarios when given an array' do
+      validator = @builder.scenarios([:one, :two]).to_validator
+      validator.scenarios.should == [:one, :two]
+    end
+
+    it 'should set multiple scenarios when given a multiple arguments' do
+      validator = @builder.scenarios(:one, :two).to_validator
+      validator.scenarios.should == [:one, :two]
+    end
+  end
+
+  #
   # to_validator
   #
 

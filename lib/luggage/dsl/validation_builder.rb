@@ -23,8 +23,7 @@ module Luggage
       #
       def initialize
         @context = Luggage::ContextChain.new
-        @matcher = nil
-        @message = nil
+        @matcher, @message, @scenarios = nil, nil, nil
       end
 
       # Sets the error message to be used if the validation fails.
@@ -43,6 +42,9 @@ module Luggage
       #     for the matcher.
       #
       # @param [Hash{Symbol => String}, String, nil] message
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
       #
       # @example Setting an explicit error message.
       #
@@ -63,6 +65,21 @@ module Luggage
         @message = message
         self
       end
+
+      # Sets the scenarios under which the built validator should run.
+      #
+      # @param [Symbol, ...] scenarios
+      #   The scenarios as Symbols.
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
+      #
+      def scenarios(*scenarios)
+        @scenarios = scenarios.flatten
+        self
+      end
+
+      alias_method :scenario, :scenarios
 
       # Provides the DSL.
       #
@@ -104,7 +121,8 @@ module Luggage
         raise Luggage::IncompleteValidator,
           'Validator was missing a matcher' if @matcher.nil?
 
-        Luggage::Validator.new(@context, @matcher, :message => @message)
+        Luggage::Validator.new(@context, @matcher,
+          :message => @message, :scenarios => @scenarios)
       end
 
     end # Validate
