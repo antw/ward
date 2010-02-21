@@ -5,6 +5,7 @@ require 'active_support/inflector/methods'
 require 'active_support/inflections'
 
 # On with the library...
+require 'luggage/support'
 require 'luggage/context'
 require 'luggage/context_chain'
 require 'luggage/dsl'

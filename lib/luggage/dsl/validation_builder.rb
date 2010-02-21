@@ -10,14 +10,7 @@ module Luggage
     #
     #   ValidationBuilder.new.author.name.is.equal_to('Michael Scarn')
     #
-    class ValidationBuilder
-
-      # Emulate a BlankSlate on Ruby 1.8.
-      instance_methods.each do |method|
-        unless method.to_s =~ /^(?:__|instance_eval|object_id|should)/
-          undef_method(method)
-        end
-      end
+    class ValidationBuilder < Support::BasicObject
 
       # Creates a new ValidationBuilder instance.
       #

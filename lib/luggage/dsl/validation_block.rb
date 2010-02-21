@@ -14,7 +14,7 @@ module Luggage
     #     object.title.match(/something/)
     #   end
     #
-    class ValidationBlock
+    class ValidationBlock < Support::BasicObject
 
       # Builds a ValidatorSet using the given block.
       #
@@ -28,13 +28,6 @@ module Luggage
       #
       def self.build(set = nil, &block)
         new(set, &block).to_validator_set
-      end
-
-      # Emulate a BlankSlate on Ruby 1.8.
-      instance_methods.each do |method|
-        unless method.to_s =~ /^(?:__|instance_eval|object_id|should)/
-          undef_method(method)
-        end
       end
 
       # Creates a new ValidationBlock instance.
