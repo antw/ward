@@ -1,0 +1,47 @@
+---
+
+  Acceptance:
+    positive: '${context} should be accepted'
+    negative: '${context} should not be accepted'
+
+  CloseTo:
+    positive: '${context} should be within ${delta} of ${expected}'
+    negative: '${context} should not be within ${delta} of ${expected}'
+
+  EqualTo:
+    positive: '${context} should be ${expected}'
+    negative: '${context} should not be ${expected}'
+
+  Exclude:
+    positive: '${context} should not be one of ${expected}'
+    negative: '${context} should be one of ${expected}'
+
+  Has:
+    eql:
+      positive: '${context} should have ${expected} ${collection_name}'
+      negative: '${context} should not have ${expected} ${collection_name}'
+    lte:
+      positive: '${context} should have at most ${expected} ${collection_name}'
+      negative: '${context} should not have at most ${expected} ${collection_name}'
+    gte:
+      positive: '${context} should have at least ${expected} ${collection_name}'
+      negative: '${context} should not have at least ${expected} ${collection_name}'
+    between:
+      positive: '${context} should have at between ${lower} and ${upper} ${collection_name}'
+      negative: '${context} should not have at between ${lower} and ${upper} ${collection_name}'
+
+  Include:
+    positive: '${context} should be one of ${expected}'
+    negative: '${context} should not be one of ${expected}'
+
+  Match:
+    positive: '${context} format was invalid'
+    negative: '${context} format was invalid'
+
+  Nil:
+    positive: '${context} should be nil'
+    negative: '${context} should not be nil'
+
+  Present:
+    positive: '${context} should be present'
+    negative: '${context} should not be present'

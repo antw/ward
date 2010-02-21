@@ -66,6 +66,36 @@ describe Luggage::DSL::ValidationBuilder do
   end
 
   #
+  # when setting a messages
+  #
+
+  describe '#message' do
+    before(:each) do
+      @builder = Luggage::DSL::ValidationBuilder.new.present
+    end
+
+    it 'should return the builder' do
+      @builder.message('A validation error message').should be(@builder)
+    end
+
+    it 'should set the validation message' do
+      validator = @builder.message('A validation error message').to_validator
+      validator.message.should == 'A validation error message'
+    end
+  end
+
+  describe 'with no message' do
+    before(:each) do
+      @builder = Luggage::DSL::ValidationBuilder.new.present
+    end
+
+    it 'should set the validation message' do
+      validator = @builder.to_validator
+      validator.message.should be_nil
+    end
+  end
+
+  #
   # to_validator
   #
 

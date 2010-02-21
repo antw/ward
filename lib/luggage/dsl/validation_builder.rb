@@ -24,6 +24,44 @@ module Luggage
       def initialize
         @context = Luggage::ContextChain.new
         @matcher = nil
+        @message = nil
+      end
+
+      # Sets the error message to be used if the validation fails.
+      #
+      # This can be one of three possibilities:
+      #
+      #   * A Hash. If the matcher used returns a different error state in
+      #     order to provide more details about what failed (such as the Has
+      #     matcher), you may provide a hash with custom error messages for
+      #     each error state.
+      #
+      #   * A String which will be used whenever the validation fails,
+      #     regardless of what went wrong.
+      #
+      #   * nil (default). The validation will use the default error message
+      #     for the matcher.
+      #
+      # @param [Hash{Symbol => String}, String, nil] message
+      #
+      # @example Setting an explicit error message.
+      #
+      #   validate do |person|
+      #     person.name.is.present.message('You must enter a name!')
+      #   end
+      #
+      # @example Setting an explicit error message with a Hash.
+      #
+      #   validate do |person|
+      #     person.name.length.is(1..50).message(
+      #       :too_short => "Your name must be at least 1 character long",
+      #       :too_long  => "That's an interesting name!"
+      #     )
+      #   end
+      #
+      def message(message)
+        @message = message
+        self
       end
 
       # Provides the DSL.
@@ -66,7 +104,7 @@ module Luggage
         raise Luggage::IncompleteValidator,
           'Validator was missing a matcher' if @matcher.nil?
 
-        Luggage::Validator.new(@context, @matcher)
+        Luggage::Validator.new(@context, @matcher, :message => @message)
       end
 
     end # Validate

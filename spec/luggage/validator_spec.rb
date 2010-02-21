@@ -4,6 +4,28 @@ describe Luggage::Validator do
   subject { Luggage::Validator }
 
   #
+  # initialize
+  #
+
+  describe '#initialize' do
+    describe 'scenarios' do
+      it 'should be [:default] when no scenarios option is given' do
+        Luggage::Validator.new(nil, nil).scenarios.should == [:default]
+      end
+
+      it 'should be [:scenario] when the scenarios option is [:scenario]' do
+        validator = Luggage::Validator.new(nil, nil, :scenarios => [:scenario])
+        validator.scenarios.should == [:scenario]
+      end
+
+      it 'should be [:scenario] when the scenarios option is :scenario' do
+        validator = Luggage::Validator.new(nil, nil, :scenarios => :scenario)
+        validator.scenarios.should == [:scenario]
+      end
+    end
+  end
+
+  #
   # context
   #
 
@@ -106,7 +128,7 @@ describe Luggage::Validator do
 
   describe '#scenario?' do
     it 'should return true when the validator exists in a given scenario' do
-      validator = Luggage::Validator.new(nil, nil, [:update])
+      validator = Luggage::Validator.new(nil, nil, :scenarios => [:update])
       validator.scenario?(:update).should be_true
     end
 
