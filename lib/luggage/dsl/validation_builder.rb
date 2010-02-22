@@ -1,6 +1,6 @@
 module Luggage
   module DSL
-    # Creates a single validator. Any message received which doesn't
+    # Creates a single {Validator}. Any message received which doesn't
     # correspond with a matcher will be assumed to be part of the context.
     #
     # @example
@@ -79,12 +79,11 @@ module Luggage
       # Will take the given message and use it to customise the matcher (if
       # one is set), set a matcher, or extend the context.
       #
-      # @return [Luggage::DSL::ValidatorBuilder]
-      #   Returns self.
-      #
-      # --
       # Normally I hate method_missing, but there's no alternative here since
       # a user may register their own matchers later in the load process.
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
       #
       def method_missing(method, *extra_args, &block)
         if @matcher
@@ -98,7 +97,7 @@ module Luggage
         self
       end
 
-      # Converts the builder to a Luggage::Validator instance.
+      # Converts the builder to a Validator instance.
       #
       # @return [Luggage::Validator]
       #
