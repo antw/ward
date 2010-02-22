@@ -66,7 +66,14 @@ module Luggage
     #   whose first element is false, and second element is an error message.
     #
     def valid?(record)
-      result, error = @matcher.matches?(@context.value(record))
+      # If the matches? method on the matcher takes two arguments, send in the
+      # record as well as the value.
+      result, error = if @matcher.method(:matches?).arity == 2
+        @matcher.matches?(@context.value(record), record)
+      else
+        @matcher.matches?(@context.value(record))
+      end
+
       result
     end
 

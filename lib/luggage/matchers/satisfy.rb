@@ -41,11 +41,17 @@ module Luggage
       #
       # @param [Object] actual
       #   The validation value.
+      # @param [Object] record
+      #   The full record.
       #
       # @return [Boolean]
       #
-      def matches?(actual)
-        not @expected.call(actual, nil) == false
+      def matches?(actual, record = nil)
+        if @expected.arity == 2
+          not @expected.call(actual, record) == false
+        else
+          not @expected.call(actual) == false
+        end
       end
 
     end # Satisfy

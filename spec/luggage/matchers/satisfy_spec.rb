@@ -12,14 +12,30 @@ describe Luggage::Matchers::Satisfy do
     matcher.should == Luggage::Matchers::Satisfy
   end
 
-  it 'should supply the attribute value to to the block' do
-    Luggage::Matchers::Satisfy.new do |value, record|
-      value.should == 'Rincewind'
-    end.matches?('Rincewind')
+  #
+  # block arguments
+  #
+
+  describe 'when the given block accepts one argument' do
+    it 'should supply the attribute value to to the block' do
+      Luggage::Matchers::Satisfy.new do |value|
+        value.should == 'Rincewind'
+      end.matches?('Rincewind')
+    end
   end
 
-  it 'should supply the record instance to the block' do
-    pending "Awaiting validation DSL"
+  describe 'when the given block accepts two arguments' do
+    it 'should supply the attribute value to to the block' do
+      Luggage::Matchers::Satisfy.new do |value, record|
+        value.should == 'Rincewind'
+      end.matches?('Rincewind')
+    end
+
+    it 'should supply the record instance to to the block' do
+      Luggage::Matchers::Satisfy.new do |value, record|
+        record.should == 'Discworld'
+      end.matches?('Rincewind', 'Discworld')
+    end
   end
 
   #
