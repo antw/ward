@@ -102,7 +102,46 @@ describe Luggage::Validator do
       # Perhaps this is one for Cucumber?
       it 'should add the error to the record errors'
     end
-  end
+
+    #
+    # argument counts
+    #
+
+    describe 'when matcher #matches? accepts' do
+      describe 'one argument' do
+        it 'should supply the record' do
+          value  = ''
+
+          Luggage::Validator.new(Luggage::Context.new(:name),
+            Class.new do
+              include Spec::Matchers
+              define_method :matches? do |arg1|
+                arg1.should equal(value)
+              end
+            end.new
+          ).valid?(mock(:name => value))
+        end
+      end
+
+      describe 'two arguments' do
+        it 'should supply the attribute and record' do
+          value  = ''
+          record = mock(:name => value)
+
+          Luggage::Validator.new(Luggage::Context.new(:name),
+            Class.new do
+              include Spec::Matchers
+              define_method :matches? do |arg1, arg2|
+                arg1.should equal(value)
+                arg2.should equal(record)
+              end
+            end.new
+          ).valid?(record)
+        end
+      end
+    end # when matcher #matches? accepts (one|two) arguments?
+
+  end # valid?
 
   #
   # scenarios
