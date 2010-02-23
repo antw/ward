@@ -47,7 +47,7 @@ module Luggage
       # @return [Boolean]
       #
       def matches?(actual, record = nil)
-        if @expected.arity == 2
+        if @expected.arity != 1
           not @expected.call(actual, record) == false
         else
           not @expected.call(actual) == false
