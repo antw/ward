@@ -95,23 +95,23 @@ describe Luggage::Matchers::Satisfy do
 
       it 'should pass if the method whose name matches the Symbol ' \
          'returns true' do
-        pending "Awaiting validation DSL" do
-          @matcher.should pass_matcher_with('Rincewind')
-        end
+        attribute = mock
+        attribute.should_receive(:validator_method).and_return(true)
+        @matcher.should pass_matcher_with(attribute)
       end
 
       it 'should pass if the method whose name matches the Symbol ' \
          'returns nil' do
-        pending "Awaiting validation DSL" do
-          @matcher.should pass_matcher_with('nil')
-        end
+        attribute = mock
+        attribute.should_receive(:validator_method).and_return(true)
+        @matcher.should pass_matcher_with(attribute)
       end
 
       it 'should fail if the method whose name matches the Symbol ' \
          'returns false' do
-        pending "Awaiting validation DSL" do
-          @matcher.should fail_matcher_with('__no_match__')
-        end
+        attribute = mock
+        attribute.should_receive(:validator_method).and_return(false)
+        @matcher.should fail_matcher_with(attribute)
       end
     end
   end # matches?

@@ -34,7 +34,8 @@ module Luggage
       #   The expected value for the matcher.
       #
       def initialize(expected = nil, *extra_args, &block)
-        super((block or expected), *extra_args)
+        block ||= lambda { |value| not value.__send__(expected) == false }
+        super(block, *extra_args)
       end
 
       # Returns whether the given value is satisfied by the expected block.
