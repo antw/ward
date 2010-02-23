@@ -2,18 +2,30 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe Luggage::Errors do
   subject { Luggage::Errors }
-  
+
   it 'should be enumerable' do
     Luggage::Errors.ancestors.should include(Enumerable)
   end
 
   it { should have_public_method_defined(:each) }
 
+  describe '#each' do
+    it 'should yield each invalid attribute' do
+      errors = Luggage::Errors.new
+      errors.add(:one, 'Whoops')
+      errors.add(:two, 'Whoops')
+
+      attributes = errors.map { |attribute, _| attribute }
+      attributes.should include(:one)
+      attributes.should include(:two)
+    end
+  end
+
   #
   # add
   #
 
-  describe 'add' do
+  describe '#add' do
     it 'should return the message which was set' do
       Luggage::Errors.new.add(:name, 'Whoops').should == 'Whoops'
     end
