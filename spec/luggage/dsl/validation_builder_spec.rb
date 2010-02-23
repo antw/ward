@@ -79,6 +79,19 @@ describe Luggage::DSL::ValidationBuilder do
   end
 
   #
+  # customising a matcher
+  #
+
+  describe 'calling a missing method when a matcher is set' do
+    it 'should call methods on the matcher' do
+      builder = Luggage::DSL::ValidationBuilder.new.has
+      builder.to_validator.matcher.expected.should == 1 # default
+      builder.at_least(5)
+      builder.to_validator.matcher.expected.should == 5
+    end
+  end
+
+  #
   # when setting a messages
   #
 
