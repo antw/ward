@@ -105,7 +105,6 @@ module Luggage
           when :lte      then actual <=  @expected
           when :gte      then actual >=  @expected
           when :between  then @expected.include?(actual)
-          else                false
         end
       end
 
