@@ -8,7 +8,9 @@ module Luggage
     # @example
     #
     #   class Person
-    #     validate(:terms).is.accepted
+    #     validate do |person|
+    #       person.name.is.accepted
+    #     end
     #   end
     #
     class Acceptance < Matcher

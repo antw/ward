@@ -9,7 +9,9 @@ module Luggage
     # @example Person role may not be either :admin or :staff
     #
     #   class Person
-    #     validate(:role).is.excluded_from([:admin, :staff])
+    #     validate do |person|
+    #       person.role.is.excluded_from([:admin, :staff])
+    #     end
     #   end
     #
     class Exclude < Matcher

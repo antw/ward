@@ -19,13 +19,17 @@ module Luggage
     # @example Validating that the name attribute is present
     #
     #   class Person
-    #     validate(:name).is.present
+    #     validate do |person|
+    #       person.name.is.present
+    #     end
     #   end
     #
     # @example Validating that the job attribute is not present :(
     #
     #   class Person
-    #     validate(:job).is_not.present
+    #     validate do |person|
+    #       person.job.is_not.present
+    #     end
     #   end
     #
     class Present < Matcher

@@ -7,7 +7,9 @@ module Luggage
     # @example
     #
     #   class AverageDogWalker
-    #     validate(:common_sense).is.nil  # Sigh.
+    #     validate do |walker|
+    #       walker.common_sense.is.nil  # Sigh.
+    #     end
     #   end
     #
     class Nil < Matcher

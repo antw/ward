@@ -7,41 +7,49 @@ module Luggage
     # @example Setting the exact size for a collection
     #
     #   class Author
-    #     # All mean the same thing.
-    #     validate.has(5).posts
-    #     validate.has.exactly(5).posts
+    #     validate do |author|
+    #       # All mean the same thing.
+    #       author.has(5).posts
+    #       author.has.exactly(5).posts
+    #     end
     #   end
     #
     # @example Setting the minimum size for a collection
     #
     #   class Author
-    #     # All mean the same thing.
-    #     validate.has.at_least(5).posts
-    #     validate.has.gte(5).posts
+    #     validate do |author|
+    #       # All mean the same thing.
+    #       author.has.at_least(5).posts
+    #       author.has.gte(5).posts
     #
-    #     validate.has.greater_than(4).posts
-    #     validate.has.more_than(4).posts
-    #     validate.has.gt(4).posts
+    #       author.has.greater_than(4).posts
+    #       author.has.more_than(4).posts
+    #       author.has.gt(4).posts
+    #     end
     #   end
     #
     # @example Setting the maximum size for a collection
     #
     #   class Author
-    #     # All mean the same thing.
-    #     validate.has.at_most(5).posts
-    #     validate.has.lte(5).posts
+    #     validate do |author|
+    #       # All mean the same thing.
+    #       author.has.at_most(5).posts
+    #       author.has.lte(5).posts
     #
-    #     validate.has.less_than(6).posts
-    #     validate.has.fewer_than(6).posts
-    #     validate.has.lt(6).posts
+    #       author.has.less_than(6).posts
+    #       author.has.fewer_than(6).posts
+    #       author.has.lt(6).posts
+    #     end
     #   end
     #
     # @example Setting a range of acceptable sizes for a collection
     #
     #   class Author
-    #     # All mean the same thing.
-    #     validate.has.between(1..5).posts
-    #     validate.has.between(1, 5).posts
+    #     validate do |author|
+    #       # All mean the same thing.
+    #       author.has.between(1..5).posts
+    #       author.has.between(1, 5).posts
+    #     end
     #   end
     #
     class Has < Matcher

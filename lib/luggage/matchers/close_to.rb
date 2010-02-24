@@ -6,7 +6,9 @@ module Luggage
     # @example Validating that the estimate attribute is 10 (+- 5).
     #
     #   class Price
-    #     validate(:estimate).is.close_to(10, 5)
+    #     validate do |price|
+    #       price.estimate.is.close_to(10, 5)
+    #     end
     #   end
     #
     class CloseTo < Matcher

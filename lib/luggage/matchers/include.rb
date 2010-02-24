@@ -8,7 +8,9 @@ module Luggage
     # @example Person role is either :admin or :staff
     #
     #   class Person
-    #     validate(:role).is.in([:admin, :staff])
+    #     validate do |person|
+    #       person.role.is.in([:admin, :staff])
+    #     end
     #   end
     #
     class Include < Matcher

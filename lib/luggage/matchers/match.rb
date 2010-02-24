@@ -6,7 +6,9 @@ module Luggage
     # @example
     #
     #   class Person
-    #     validate(:name).matches(/^Michael (Scarn|Scott)$/)
+    #     validate do |person|
+    #       person.name.matches(/^Michael (Scarn|Scott)$/)
+    #     end
     #   end
     #
     class Match < Matcher

@@ -6,7 +6,9 @@ module Luggage
     # @example
     #
     #   class Person
-    #     validate(:name).is.equal_to('Michael Scarn')
+    #     validate do |person|
+    #       person.name.is.equal_to('Michael Scarn')
+    #     end
     #   end
     #
     # @todo
