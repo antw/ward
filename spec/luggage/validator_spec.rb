@@ -109,14 +109,13 @@ describe Luggage::Validator do
 
     describe 'when matcher #matches? accepts' do
       describe 'one argument' do
-        it 'should supply the record' do
+        it 'should supply the attribute' do
           value  = ''
 
           Luggage::Validator.new(Luggage::Context.new(:name),
             Class.new do
-              include Spec::Matchers
-              define_method :matches? do |arg1|
-                arg1.should equal(value)
+              def matches?(arg1)
+                arg1.should == ''
               end
             end.new
           ).valid?(mock(:name => value))
@@ -131,9 +130,9 @@ describe Luggage::Validator do
           Luggage::Validator.new(Luggage::Context.new(:name),
             Class.new do
               include Spec::Matchers
-              define_method :matches? do |arg1, arg2|
-                arg1.should equal(value)
-                arg2.should equal(record)
+              def matches?(arg1, arg2)
+                arg1.should == ''
+                arg2.should be_a(Spec::Mocks::Mock)
               end
             end.new
           ).valid?(record)

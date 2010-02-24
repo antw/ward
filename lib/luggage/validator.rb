@@ -68,7 +68,7 @@ module Luggage
     def valid?(record)
       # If the matches? method on the matcher takes two arguments, send in the
       # record as well as the value.
-      result, error = if @matcher.method(:matches?).arity == 2
+      result, error = if @matcher.method(:matches?).arity != 1
         @matcher.matches?(@context.value(record), record)
       else
         @matcher.matches?(@context.value(record))

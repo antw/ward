@@ -56,11 +56,17 @@ Object validation inspired by RSpec.
 
 ### Current Status
 
-To describe Luggage as being in the early-stages of development would be to
-make a pretty extraordinary understatement. None of the code snippet in the
-preceding section actually works at the moment. I'm focusing on getting the
-underlying data structures in place before finishing off with the (tricky)
-task of creating the DSL.
+Feb 24th 2010: "Getting there" :)
+
+#### Compatibility
+
+Luggage specs are run against:
+
+  * Ruby (MRI) 1.8.6 p399,
+  * Ruby (MRI) 1.8.7 p249,
+  * Ruby (YARV) 1.9.1 p378,
+  * JRuby 1.4.0,
+  * Rubinius RC2.
 
 ### Note on Patches/Pull Requests
 
