@@ -1,4 +1,3 @@
-@pending
 Feature: Validating objects with an "is" keyword
   In order provide a more natural DSL
   I want to be able to use the is keyword

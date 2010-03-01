@@ -1,4 +1,3 @@
-@pending
 Feature: Validating objects with an "is_not" or "does_not" keyword
   In order to give users greater control over their validators
   I want be able to use the is_not and does_not keyword to negate what follows

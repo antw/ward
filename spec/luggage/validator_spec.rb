@@ -64,44 +64,85 @@ describe Luggage::Validator do
   it { should have_public_method_defined(:valid?) }
 
   describe '#valid?' do
-    before(:all) do
-      @validator = Luggage::Validator.new(
-        Luggage::Context.new(:name), Luggage::Matchers::Nil.new
-      )
-    end
-
-    describe 'when the matcher passes' do
-      it 'should return true' do
-        @validator.valid?(mock(:name => nil)).should be_true
-      end
-    end
-
-    describe 'when the matcher fails' do
+    describe 'when the validator is positive' do
       before(:all) do
-        @result = @validator.valid?(mock(:name => ''))
+        @validator = Luggage::Validator.new(Luggage::Context.new(:name),
+          Luggage::Matchers::Nil.new, :negative => false)
       end
 
-      it 'should return false' do
-        @result.should be_false
+      describe 'when the matcher passes' do
+        it 'should return true' do
+          @validator.valid?(mock(:name => nil)).should be_true
+        end
       end
 
-      # Perhaps this is one for Cucumber?
-      it 'should add the error to the record errors'
-    end
+      describe 'when the matcher fails' do
+        before(:all) do
+          @result = @validator.valid?(mock(:name => ''))
+        end
 
-    describe 'when the matcher fails and return an error' do
+        it 'should return false' do
+          @result.should be_false
+        end
+
+        # Perhaps this is one for Cucumber?
+        it 'should add the error to the record errors'
+      end
+
+      describe 'when the matcher fails and return an error' do
+        before(:all) do
+          @validator.matcher.stub(:matches?).and_return([false, :error])
+          @result = @validator.valid?(mock(:name => ''))
+        end
+
+        it 'should return false' do
+          @result.should be_false
+        end
+
+        # Perhaps this is one for Cucumber?
+        it 'should add the error to the record errors'
+      end
+    end # when the matcher is positive
+
+    describe 'when the validator is negative' do
       before(:all) do
-        @validator.matcher.stub(:matches?).and_return([false, :error])
-        @result = @validator.valid?(mock(:name => ''))
+        @validator = Luggage::Validator.new(Luggage::Context.new(:name),
+          Luggage::Matchers::Nil.new, :negative => true)
       end
 
-      it 'should return false' do
-        @result.should be_false
+      describe 'when the matcher passes' do
+        it 'should return false' do
+          @validator.valid?(mock(:name => nil)).should be_false
+        end
       end
 
-      # Perhaps this is one for Cucumber?
-      it 'should add the error to the record errors'
-    end
+      describe 'when the matcher fails' do
+        before(:all) do
+          @result = @validator.valid?(mock(:name => ''))
+        end
+
+        it 'should return true' do
+          @result.should be_true
+        end
+
+        # Perhaps this is one for Cucumber?
+        it 'should add the error to the record errors'
+      end
+
+      describe 'when the matcher fails and return an error' do
+        before(:all) do
+          @validator.matcher.stub(:matches?).and_return([false, :error])
+          @result = @validator.valid?(mock(:name => ''))
+        end
+
+        it 'should return true' do
+          @result.should be_true
+        end
+
+        # Perhaps this is one for Cucumber?
+        it 'should add the error to the record errors'
+      end
+    end # when the matcher is negative
 
     #
     # argument counts
@@ -175,5 +216,29 @@ describe Luggage::Validator do
       validator.scenario?(:update).should be_false
     end
   end
+
+  #
+  # negative?
+  #
+
+  it { should have_public_method_defined(:negative?) }
+
+  describe 'negative?' do
+    it 'should return true when the validator requires that the matcher ' \
+       'does not match the actual value' do
+      validator = Luggage::Validator.new(nil, nil, :negative => true)
+      validator.should be_negative
+    end
+
+    it 'should return false when the validator requires that the matcher ' \
+       'matches the actual value' do
+      validator = Luggage::Validator.new(nil, nil, :negative => false)
+      validator.should_not be_negative
+
+      validator = Luggage::Validator.new(nil, nil)
+      validator.should_not be_negative
+    end
+  end
+
 
 end

@@ -16,7 +16,7 @@ module Luggage
       #
       def initialize
         @context = Luggage::ContextChain.new
-        @matcher, @message, @scenarios = nil, nil, nil
+        @matcher, @message, @scenarios, @negative = nil, nil, nil, false
       end
 
       # Sets the error message to be used if the validation fails.
@@ -74,6 +74,34 @@ module Luggage
 
       alias_method :scenario, :scenarios
 
+      # Set this as a positive expectation. Can be omitted.
+      #
+      # @example
+      #   object.name.is.blank
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
+      #
+      def is(*args)
+        equal_to(*args) unless args.empty?
+        self
+      end
+
+      # Set this as a negative expectation.
+      #
+      # @example
+      #   object.name.is_not.blank
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
+      #
+      def is_not(*args)
+        @negative = true
+        is(*args)
+      end
+
+      alias_method :does_not, :is_not
+
       # Provides the DSL.
       #
       # Will take the given message and use it to customise the matcher (if
@@ -113,8 +141,8 @@ module Luggage
         raise Luggage::IncompleteValidator,
           'Validator was missing a matcher' if @matcher.nil?
 
-        Luggage::Validator.new(@context, @matcher,
-          :message => @message, :scenarios => @scenarios)
+        Luggage::Validator.new(@context, @matcher, :message => @message,
+          :scenarios => @scenarios, :negative => @negative)
       end
 
     end # Validate

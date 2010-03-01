@@ -53,7 +53,8 @@ module Luggage
     def initialize(context, matcher, options = {})
       @context, @matcher = context, matcher
       @scenarios = Array(options[:scenarios] || :default)
-      @message = options[:message]
+      @negative = options[:negative] || false
+      @message  = options[:message]
     end
 
     # Determines if the validator is valid for the given record.
@@ -74,7 +75,7 @@ module Luggage
         @matcher.matches?(@context.value(record))
       end
 
-      result
+      result ^ negative?
     end
 
     # Returns if the validator should be run as part of the given scenario.
@@ -86,6 +87,16 @@ module Luggage
     #
     def scenario?(scenario)
       @scenarios.include?(scenario)
+    end
+
+    # Returns if the validator expects that the matcher _not_ match.
+    #
+    # Use with the +is_not+ and +does_not+ DSL keyword.
+    #
+    # @return [Boolean]
+    #
+    def negative?
+      @negative
     end
 
   end
