@@ -44,14 +44,10 @@ describe Luggage::ValidatorSet do
   describe '#valid?' do
     describe 'with two validators, both of which pass' do
       it 'should return true' do
-        set = Luggage::ValidatorSet.new([
-          Luggage::Validator.new(
-            Luggage::Context.new(:length), Luggage::Matchers::EqualTo.new(1)
-          ),
-          Luggage::Validator.new(
-            Luggage::Context.new(:length), Luggage::Matchers::Present.new
-          )
-        ])
+        set = Luggage::DSL::ValidationBlock.build do |object|
+          object.length.is.equal_to(1)
+          object.length.is.present
+        end
 
         set.valid?('a').should be_true
       end
@@ -107,11 +103,9 @@ describe Luggage::ValidatorSet do
 
   describe '#merge!' do
     before(:each) do
-      @set = Luggage::ValidatorSet.new([
-        Luggage::Validator.new(
-          Luggage::Context.new(:length), Luggage::Matchers::EqualTo.new(1)
-        )
-      ])
+      @set = Luggage::DSL::ValidationBlock.build do |object|
+        object.length.is.equal_to(1)
+      end
     end
 
     it 'should return self' do

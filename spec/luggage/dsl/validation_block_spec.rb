@@ -22,7 +22,7 @@ describe Luggage::DSL::ValidationBlock do
       it 'should add the validators to the set' do
         dsl = Luggage::DSL::ValidationBlock.build do |object|
           object.name.matches(/abc/)
-          object.name.length.equal_to(3)
+          object.name.length.is.equal_to(3)
         end
 
         # ValidatorSet doesn't have a size method, but does implement Enumerable
@@ -34,7 +34,7 @@ describe Luggage::DSL::ValidationBlock do
       before(:all) do
         @initial = Luggage::DSL::ValidationBlock.build do |object|
           object.name.matches(/abc/)
-          object.name.length.equal_to(3)
+          object.name.length.is.equal_to(3)
         end
 
         @set = Luggage::DSL::ValidationBlock.build(@initial) do |object|

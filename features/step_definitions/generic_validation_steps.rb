@@ -14,13 +14,13 @@
 
 When %r{^validating the ('\w+' attribute)$} do |attribute|
   @validator_set_definition ||= []
-  @validator_set_definition << "object.#{attribute}.equal_to('valid')"
+  @validator_set_definition << "object.#{attribute}.is.equal_to('valid')"
 end
 
 When %r{^validating the ('\w+' attribute) in the ('\w+' scenario)$} do |attribute, scenario|
   @validator_set_definition ||= []
   @validator_set_definition <<
-    "object.#{attribute}.equal_to('valid').scenario(:#{scenario})"
+    "object.#{attribute}.is.equal_to('valid').scenario(:#{scenario})"
 end
 
 Given %r{^the instance ('\w+' attribute) is valid$} do |attribute|

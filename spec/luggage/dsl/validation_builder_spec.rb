@@ -13,22 +13,22 @@ describe Luggage::DSL::ValidationBuilder do
     end
 
     it "should set an Acceptance matcher when calling #accepted" do
-      validator = @builder.accepted.to_validator
+      validator = @builder.is.accepted.to_validator
       validator.matcher.should be_a(Luggage::Matchers::Acceptance)
     end
 
     it "should set a CloseTo matcher when calling #close_to" do
-      validator = @builder.close_to(1, 1).to_validator
+      validator = @builder.is.close_to(1, 1).to_validator
       validator.matcher.should be_a(Luggage::Matchers::CloseTo)
     end
 
     it "should set an EqualTo matcher when calling #equal_to" do
-      validator = @builder.equal_to(1).to_validator
+      validator = @builder.is.equal_to(1).to_validator
       validator.matcher.should be_a(Luggage::Matchers::EqualTo)
     end
 
     it "should set an Exclude matcher when calling #excluded_from" do
-      validator = @builder.excluded_from([]).to_validator
+      validator = @builder.is.excluded_from([]).to_validator
       validator.matcher.should be_a(Luggage::Matchers::Exclude)
     end
 
@@ -43,7 +43,7 @@ describe Luggage::DSL::ValidationBuilder do
     end
 
     it "should set an Include matcher when calling #included_in" do
-      validator = @builder.included_in([]).to_validator
+      validator = @builder.is.included_in([]).to_validator
       validator.matcher.should be_a(Luggage::Matchers::Include)
     end
 
@@ -58,12 +58,12 @@ describe Luggage::DSL::ValidationBuilder do
     end
 
     it "should set a Nil matcher when calling #nil" do
-      validator = @builder.nil.to_validator
+      validator = @builder.is.nil.to_validator
       validator.matcher.should be_a(Luggage::Matchers::Nil)
     end
 
     it "should set a Present matcher when calling #present" do
-      validator = @builder.present.to_validator
+      validator = @builder.is.present.to_validator
       validator.matcher.should be_a(Luggage::Matchers::Present)
     end
 
@@ -97,7 +97,7 @@ describe Luggage::DSL::ValidationBuilder do
 
   describe '#message' do
     before(:each) do
-      @builder = Luggage::DSL::ValidationBuilder.new.present
+      @builder = Luggage::DSL::ValidationBuilder.new.is.present
     end
 
     it 'should return the builder' do
@@ -112,7 +112,7 @@ describe Luggage::DSL::ValidationBuilder do
 
   describe 'with no message' do
     before(:each) do
-      @builder = Luggage::DSL::ValidationBuilder.new.present
+      @builder = Luggage::DSL::ValidationBuilder.new.is.present
     end
 
     it 'should set the validation message' do
@@ -127,7 +127,7 @@ describe Luggage::DSL::ValidationBuilder do
 
   describe '#scenario' do
     before(:each) do
-      @builder = Luggage::DSL::ValidationBuilder.new.present
+      @builder = Luggage::DSL::ValidationBuilder.new.is.present
     end
 
     it 'should return the builder' do
@@ -142,7 +142,7 @@ describe Luggage::DSL::ValidationBuilder do
 
   describe '#scenarios' do
     before(:each) do
-      @builder = Luggage::DSL::ValidationBuilder.new.present
+      @builder = Luggage::DSL::ValidationBuilder.new.is.present
     end
 
     it 'should return the builder' do
@@ -177,7 +177,7 @@ describe Luggage::DSL::ValidationBuilder do
     describe 'when a matcher is defined' do
       before(:all) do
         builder = Luggage::DSL::ValidationBuilder.new.author.name
-        builder.equal_to(1)
+        builder.is.equal_to(1)
         @validator = builder.to_validator
       end
 
