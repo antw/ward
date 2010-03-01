@@ -2,7 +2,7 @@ begin
   require 'cucumber/rake/task'
 
   Cucumber::Rake::Task.new(:features) do |features|
-    features.cucumber_opts = '--format progress'
+    features.cucumber_opts = '--format progress --tag ~@pending'
   end
 
   task :features => :check_dependencies
