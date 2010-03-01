@@ -68,7 +68,7 @@ module Luggage
       #
       # Will take the given message and creates a new ValidationBuilder.
       #
-      # @return [Luggage::DSL::ValidatorBuilder]
+      # @return [Luggage::DSL::ValidationBuilder]
       #   Returns the created builder.
       #
       def method_missing(method, *extra_args, &block)
