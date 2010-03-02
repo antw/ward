@@ -55,42 +55,42 @@ describe Luggage::ValidatorSet do
 
     describe 'with two validators, both of which fail' do
       before(:each) do
-        @set = Luggage::ValidatorSet.new
-        (@v1 = mock('Validator one')).stub!(:valid?).and_return(false)
-        (@v2 = mock('Validator two')).stub!(:valid?).and_return(false)
-        @set << @v1 << @v2
+        @set = Luggage::DSL::ValidationBlock.build do |object|
+          object.length.is.equal_to(1)
+          object.length.is.equal_to(2)
+        end
       end
 
       it 'should return false' do
-        @set.valid?(nil).should be_false
+        @set.valid?('').should be_false
       end
 
       it 'should run all the validators' do
         @set.each do |validator|
-          validator.should_receive(:valid?).and_return(false)
+          validator.should_receive(:valid?).and_return([false])
         end
 
-        lambda { @set.valid?(nil) }.should_not raise_exception
+        lambda { @set.valid?('') }.should_not raise_exception
       end
     end
 
     describe 'with two validators, one of which fails' do
       before(:each) do
-        @set = Luggage::ValidatorSet.new
-        (@v1 = mock('Validator one')).stub!(:valid?).and_return(false)
-        (@v2 = mock('Validator two')).stub!(:valid?).and_return(true)
-        @set << @v1 << @v2
+        @set = Luggage::DSL::ValidationBlock.build do |object|
+          object.length.is.equal_to(1) # false
+          object.length.is.equal_to(2) # true
+        end
       end
 
       it 'should return false' do
-        @set.valid?(nil).should be_false
+        @set.valid?('ab').should be_false
       end
 
       it 'should run all the validators' do
-        @v1.should_receive(:valid?).and_return(false)
-        @v2.should_receive(:valid?).and_return(true)
+        @set.to_a[0].should_receive(:valid?).and_return([false])
+        @set.to_a[1].should_receive(:valid?).and_return([true])
 
-        lambda { @set.valid?(nil) }.should_not raise_exception
+        lambda { @set.valid?('ab') }.should_not raise_exception
       end
     end
   end # valid?

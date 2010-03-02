@@ -34,7 +34,9 @@ module Luggage
     #   Returns true if the record validated, otherwise returns false.
     #
     def valid?(record, scenario = :default)
-      inject(true) { |result, validator| validator.valid?(record) && result }
+      inject(true) do |result, validator|
+        validator.valid?(record).first && result
+      end
     end
 
     # Iterates through each validator in the set.

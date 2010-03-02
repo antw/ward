@@ -59,12 +59,17 @@ module Luggage
 
     # Determines if the validator is valid for the given record.
     #
+    # The return value deviates from the ValidatorSet API -- where #valid?
+    # returns only a boolean value -- but that's fine since you shouldn't be
+    # calling Validator#valid? in your applications anyway. :)
+    #
     # @param [Object] record
     #   The object whose attribute is to be validated.
     #
-    # @return [Boolean, Array]
-    #   Returns true if the attribute validated; otherwise returns an array
-    #   whose first element is false, and second element is an error message.
+    # @return [Array<Boolean, {nil, String, Symbol}>]
+    #   Returns an array with two elements. The first is always either true or
+    #   false, indicating whether the validator passed, and the second is the
+    #   raw error message returned by the matcher.
     #
     def valid?(record)
       # If the matches? method on the matcher takes two arguments, send in the
@@ -75,7 +80,7 @@ module Luggage
         @matcher.matches?(@context.value(record))
       end
 
-      result ^ negative?
+      [result ^ negative?, error]
     end
 
     # Returns if the validator should be run as part of the given scenario.

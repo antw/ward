@@ -81,8 +81,8 @@ describe Luggage::Validator do
           @result = @validator.valid?(mock(:name => ''))
         end
 
-        it 'should return false' do
-          @result.should be_false
+        it 'should return Array[false, ...]' do
+          @result.first.should be_false
         end
 
         # Perhaps this is one for Cucumber?
@@ -95,8 +95,8 @@ describe Luggage::Validator do
           @result = @validator.valid?(mock(:name => ''))
         end
 
-        it 'should return false' do
-          @result.should be_false
+        it 'should return Array[false, ...]' do
+          @result.first.should be_false
         end
 
         # Perhaps this is one for Cucumber?
@@ -111,8 +111,8 @@ describe Luggage::Validator do
       end
 
       describe 'when the matcher passes' do
-        it 'should return false' do
-          @validator.valid?(mock(:name => nil)).should be_false
+        it 'should return Array[false, ...]' do
+          @validator.valid?(mock(:name => nil)).first.should be_false
         end
       end
 
@@ -121,8 +121,8 @@ describe Luggage::Validator do
           @result = @validator.valid?(mock(:name => ''))
         end
 
-        it 'should return true' do
-          @result.should be_true
+        it 'should return Array[true, ...]' do
+          @result.first.should be_true
         end
 
         # Perhaps this is one for Cucumber?
@@ -135,8 +135,8 @@ describe Luggage::Validator do
           @result = @validator.valid?(mock(:name => ''))
         end
 
-        it 'should return true' do
-          @result.should be_true
+        it 'should return Array[true, ...]' do
+          @result.first.should be_true
         end
 
         # Perhaps this is one for Cucumber?
