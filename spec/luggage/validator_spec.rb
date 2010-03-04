@@ -58,12 +58,12 @@ describe Luggage::Validator do
   end
 
   #
-  # valid?
+  # validate
   #
 
-  it { should have_public_method_defined(:valid?) }
+  it { should have_public_method_defined(:validate) }
 
-  describe '#valid?' do
+  describe '#validate' do
     describe 'when the validator is positive' do
       before(:all) do
         @validator = Luggage::Validator.new(Luggage::Context.new(:name),
@@ -72,13 +72,13 @@ describe Luggage::Validator do
 
       describe 'when the matcher passes' do
         it 'should return true' do
-          @validator.valid?(mock(:name => nil)).should be_true
+          @validator.validate(mock(:name => nil)).should be_true
         end
       end
 
       describe 'when the matcher fails' do
         before(:all) do
-          @result = @validator.valid?(mock(:name => ''))
+          @result = @validator.validate(mock(:name => ''))
         end
 
         it 'should return Array[false, ...]' do
@@ -92,7 +92,7 @@ describe Luggage::Validator do
       describe 'when the matcher fails and return an error' do
         before(:all) do
           @validator.matcher.stub(:matches?).and_return([false, :error])
-          @result = @validator.valid?(mock(:name => ''))
+          @result = @validator.validate(mock(:name => ''))
         end
 
         it 'should return Array[false, ...]' do
@@ -112,13 +112,13 @@ describe Luggage::Validator do
 
       describe 'when the matcher passes' do
         it 'should return Array[false, ...]' do
-          @validator.valid?(mock(:name => nil)).first.should be_false
+          @validator.validate(mock(:name => nil)).first.should be_false
         end
       end
 
       describe 'when the matcher fails' do
         before(:all) do
-          @result = @validator.valid?(mock(:name => ''))
+          @result = @validator.validate(mock(:name => ''))
         end
 
         it 'should return Array[true, ...]' do
@@ -132,7 +132,7 @@ describe Luggage::Validator do
       describe 'when the matcher fails and return an error' do
         before(:all) do
           @validator.matcher.stub(:matches?).and_return([false, :error])
-          @result = @validator.valid?(mock(:name => ''))
+          @result = @validator.validate(mock(:name => ''))
         end
 
         it 'should return Array[true, ...]' do
@@ -159,7 +159,7 @@ describe Luggage::Validator do
                 arg1.should == ''
               end
             end.new
-          ).valid?(mock(:name => value))
+          ).validate(mock(:name => value))
         end
       end
 
@@ -176,12 +176,12 @@ describe Luggage::Validator do
                 arg2.should be_a(Spec::Mocks::Mock)
               end
             end.new
-          ).valid?(record)
+          ).validate(record)
         end
       end
     end # when matcher #matches? accepts (one|two) arguments?
 
-  end # valid?
+  end # validate
 
   #
   # scenarios

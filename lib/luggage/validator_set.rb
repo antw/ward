@@ -35,7 +35,7 @@ module Luggage
     #
     def valid?(record, scenario = :default)
       inject(true) do |result, validator|
-        validator.valid?(record).first && result
+        validator.validate(record).first && result
       end
     end
 

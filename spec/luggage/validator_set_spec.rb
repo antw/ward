@@ -67,7 +67,7 @@ describe Luggage::ValidatorSet do
 
       it 'should run all the validators' do
         @set.each do |validator|
-          validator.should_receive(:valid?).and_return([false])
+          validator.should_receive(:validate).and_return([false])
         end
 
         lambda { @set.valid?('') }.should_not raise_exception
@@ -87,8 +87,8 @@ describe Luggage::ValidatorSet do
       end
 
       it 'should run all the validators' do
-        @set.to_a[0].should_receive(:valid?).and_return([false])
-        @set.to_a[1].should_receive(:valid?).and_return([true])
+        @set.to_a[0].should_receive(:validate).and_return([false])
+        @set.to_a[1].should_receive(:validate).and_return([true])
 
         lambda { @set.valid?('ab') }.should_not raise_exception
       end

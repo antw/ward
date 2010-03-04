@@ -71,7 +71,7 @@ module Luggage
     #   false, indicating whether the validator passed, and the second is the
     #   raw error message returned by the matcher.
     #
-    def valid?(record)
+    def validate(record)
       # If the matches? method on the matcher takes two arguments, send in the
       # record as well as the value.
       result, error = if @matcher.method(:matches?).arity != 1
