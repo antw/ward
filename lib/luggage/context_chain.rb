@@ -22,7 +22,7 @@ module Luggage
     # @return [Symbol]
     #
     def attribute
-      @contexts.first.attribute
+      @contexts.empty? ? :base : @contexts.first.attribute
     end
 
     # Returns the 'natural name' of the contained contexts.
@@ -30,6 +30,8 @@ module Luggage
     # @return [String]
     #
     def natural_name
+      return '' if @contexts.empty?
+
       @contexts[1..-1].inject(@contexts.first.natural_name) do |name, context|
         "#{name} #{context.natural_name.downcase}"
       end

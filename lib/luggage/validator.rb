@@ -132,6 +132,11 @@ module Luggage
         :expected => matcher.expected, :context => context.natural_name)
 
       error.strip!
+
+      # When validating the object itself (as may be the case with the has
+      # matcher), upcase the first character.
+      error.sub!(/^should/, 'Should')
+
       error
     end
 

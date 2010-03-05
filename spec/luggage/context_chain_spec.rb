@@ -23,6 +23,10 @@ describe Luggage::ContextChain do
     it "should return the first Context's attribute" do
       @chain.attribute.should == :name
     end
+
+    it 'should return :base when there are no contexts contained' do
+      Luggage::ContextChain.new.attribute.should == :base
+    end
   end
 
   #
@@ -55,6 +59,12 @@ describe Luggage::ContextChain do
   it { should have_public_method_defined(:natural_name) }
 
   describe '#natural_name' do
+    describe 'when the chain contains no contexts' do
+      it 'should return a blank string' do
+        Luggage::ContextChain.new.natural_name.should eql('')
+      end
+    end
+
     describe 'when the chain contains a single context' do
       before(:all) do
         @chain =  Luggage::ContextChain.new
