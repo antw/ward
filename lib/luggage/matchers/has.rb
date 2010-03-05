@@ -77,11 +77,11 @@ module Luggage
       #   The expected value for the matcher.
       #
       def initialize(expected = nil, *extra_args)
-        if expected.nil?
-          @relativity = :gte
-          super(1, *extra_args)
-        else
-          super
+        case expected
+          when Range   then super ; between(expected)
+          when Numeric then super ; eql(expected)
+          when :no     then super ; eql(0)
+          else              super(1, *extra_args) ; @relativity = :gte
         end
       end
 

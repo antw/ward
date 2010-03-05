@@ -248,12 +248,33 @@ describe Luggage::Matchers::Has do
               @matcher.should fail_matcher_with(mock(method => 6))
             end
           end # when relativity is :between
+
+          describe 'when the relativity is inferred as between given a ' \
+              'range value' do
+            before(:all) do
+              @matcher = Luggage::Matchers::Has.new(4..5)
+            end
+
+            it 'should fail if the collection has < n members' do
+              @matcher.should fail_matcher_with(mock(method => 3))
+            end
+
+            it 'should pass if the collection has == n members' do
+              @matcher.should pass_matcher_with(mock(method => 4))
+              @matcher.should pass_matcher_with(mock(method => 5))
+            end
+
+            it 'should fail if the collection has > n members' do
+              @matcher.should fail_matcher_with(mock(method => 6))
+            end
+          end
         end # no collection name
 
         describe 'when a collection name is set' do
           it 'should use the length of the collection' do
-            # The matcher will fail if it attempts to use the actual value's size,
-            # but will pass if it retrieves the size of the correct collection.
+            # The matcher will fail if it attempts to use the actual value's
+            # size, but will pass if it retrieves the size of the correct
+            # collection.
             actual = mock(method => 0, :posts => mock(method => 5))
 
             matcher = Luggage::Matchers::Has.new.eql(5).posts
