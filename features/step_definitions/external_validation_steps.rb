@@ -30,16 +30,29 @@ end
 
 Then %r{^the validation set should pass$} do
   validator_set.valid?(defined_object).should be_true
+  validator_set.validate(defined_object).should be_pass
 end
 
 Then %r{^the validation set should fail$} do
   validator_set.valid?(defined_object).should be_false
+  validator_set.validate(defined_object).should be_fail
 end
 
 Then %r{^the validation set should pass when using the ('\w+' scenario)$} do |scenario|
   validator_set.valid?(defined_object, scenario).should be_true
+  validator_set.validate(defined_object, scenario).should be_pass
 end
 
 Then %r{^the validation set should fail when using the ('\w+' scenario)$} do |scenario|
   validator_set.valid?(defined_object, scenario).should be_false
+  validator_set.validate(defined_object, scenario).should be_fail
+end
+
+Then %r{^there should be no validation errors$} do
+  validator_set.validate(defined_object).errors.should be_empty
+end
+
+Then %r{^the error on '([^']+)' should be '([^']+)'$} do |attribute, msg|
+  result = validator_set.validate(defined_object)
+  result.errors.on(attribute.to_sym).should == [msg]
 end

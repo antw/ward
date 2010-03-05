@@ -5,7 +5,47 @@ module Luggage
 
     include Enumerable
 
-    # Creates a new Errors instance
+    class << self
+
+      # Returns the en-US error message hash. TEMPORARY.
+      #
+      # @return [Hash]
+      #
+      def messages
+        @error_messages ||= YAML.load(
+          File.read(File.expand_path('../../../lang/en-US.yml', __FILE__)))
+      end
+
+      # Returns the unformatted error message for a matcher.
+      #
+      # @param [Luggage::Matchers::Matcher] matcher
+      #   The matcher.
+      # @param [Boolean] negative
+      #   Whether to return a negative message, rather than a positive.
+      # @param [nil, Symbol, String] key
+      #   If a string is supplied, +error_for+ will assume that the string
+      #   should be used as the error. A symbol will be assumed to be a 'key'
+      #   from the language file, while nil will result in the validator using
+      #   the default error message for the matcher.
+      #
+      # @return [String]
+      #
+      def error_for(matcher, negative, key = nil)
+        return key if key.is_a?(String)
+
+        matcher_messages = messages[matcher.class.error_id]
+        matcher_messages = matcher_messages[key.to_s] unless key.nil?
+
+        if matcher_messages.nil?
+          '%{context} is invalid' # Uh-oh.
+        else
+          matcher_messages[ negative ? 'negative' : 'positive' ]
+        end
+      end
+
+    end # class << self
+
+    # Creates a new Errors instance.
     #
     def initialize
       @errors = {}
@@ -56,6 +96,14 @@ module Luggage
     #
     def each(&block)
       @errors.each(&block)
+    end
+
+    # Returns if there are no errors contained.
+    #
+    # @return [Boolean]
+    #
+    def empty?
+      @errors.empty?
     end
 
   end # Errors

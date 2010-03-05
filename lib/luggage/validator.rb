@@ -80,7 +80,7 @@ module Luggage
         @matcher.matches?(@context.value(record))
       end
 
-      [result ^ negative?, error]
+      result ^ negative? ? [ true, nil ] : [ false, error_for(error) ]
     end
 
     # Returns if the validator should be run as part of the given scenario.
@@ -102,6 +102,37 @@ module Luggage
     #
     def negative?
       @negative
+    end
+
+    private
+
+    # Returns the error message when the matcher fails.
+    #
+    # If the validator has a message defined, it will always be used in
+    # preference over any error returned by the matcher, or defiend in the
+    # language files.
+    #
+    # Formatting the error message is done in a two-stage process:
+    #
+    #   1. The matcher's #format_error method is called, allowing it to add
+    #      any values which are specific to the matcher.
+    #
+    #   2. The expected value and context are added.
+    #
+    # @param  [nil, Symbol, String] key
+    # @return [String]
+    #
+    # @see Luggage::Errors.error_for
+    # @see Luggage::Matchers::Matcher#format_error
+    #
+    def error_for(key)
+      initial = @message || Luggage::Errors.error_for(matcher, negative?, key)
+
+      error = initial % matcher.customise_error_values(
+        :expected => matcher.expected, :context => context.natural_name)
+
+      error.strip!
+      error
     end
 
   end

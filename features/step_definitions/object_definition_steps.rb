@@ -24,7 +24,7 @@ Given %r{^the class also has a ('\w+' attribute)$} do |attribute|
   @class_attributes << attribute
 end
 
-Given %r{^the instance ('\w+' attribute) is '(.+)'$} do |attribute, value|
+Given %r{^the instance ('\w+' attribute) is '(.*)'$} do |attribute, value|
   unless @class_attributes.include?(attribute)
     raise "The #{attribute.inspect} attribute was not defined"
   end

@@ -108,12 +108,14 @@ module Luggage
             '#length or #size)'
         end
 
-        case @relativity
+        result = case @relativity
           when :eql, nil then actual == (@expected == :no ? 0 : @expected)
           when :lte      then actual <=  @expected
           when :gte      then actual >=  @expected
           when :between  then @expected.include?(actual)
         end
+
+        [result, @relativity || :eql]
       end
 
       # Sets that the collection should be smaller than the expected value.
@@ -209,6 +211,22 @@ module Luggage
         else
           set_relativity(:between, (n..upper))
         end
+      end
+
+      # Adds extra information to the error message.
+      #
+      # @param  [String] error
+      # @return [String]
+      #
+      def customise_error_values(values)
+        values[:collection_name] = @collection_name || ''
+
+        if @relativity == :between
+          values[:lower] = @expected.first
+          values[:upper] = @expected.last
+        end
+
+        values
       end
 
       private

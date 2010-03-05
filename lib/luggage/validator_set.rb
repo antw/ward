@@ -39,6 +39,31 @@ module Luggage
       end
     end
 
+    # A more useful version of #valid?
+    #
+    # Whereas #valid? simply returns true or false indicating whether the
+    # validations passed, #validate returns a Luggage::Support::Result
+    # instance which describes the outcome of running the validators, and
+    # encapsulates any errors messages which resulted.
+    #
+    # @param [Object] record
+    #   The object whose validations are to be run.
+    # @param [Symbol] scenario
+    #   A name identifying the scenario.
+    #
+    # @return [Luggage::Support::Result]
+    #
+    def validate(record, scenario = :default)
+      errors = Luggage::Errors.new
+
+      @validators.each do |validator|
+        result, error = validator.validate(record)
+        errors.add(validator.context, error) unless result == true
+      end
+
+      Support::Result.new(errors)
+    end
+
     # Iterates through each validator in the set.
     #
     # @yield [validator] Yields each validator in turn.
