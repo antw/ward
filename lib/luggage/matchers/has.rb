@@ -219,7 +219,7 @@ module Luggage
       # @return [String]
       #
       def customise_error_values(values)
-        values[:collection_name] = @collection_name || ''
+        values[:collection] = @collection_desc || ''
 
         if @relativity == :between
           values[:lower] = @expected.first
@@ -240,7 +240,12 @@ module Luggage
       #   Capture args and block to be used when fetching the collection.
       #
       def method_missing(method, *args, &block)
-        @collection_name = method.to_sym
+        @collection_desc = ActiveSupport::Inflector.humanize(method).downcase
+
+        unless method == :characters and ''.respond_to?(:characters)
+          @collection_name = method
+        end
+
         self
       end
 

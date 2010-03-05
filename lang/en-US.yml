@@ -18,17 +18,17 @@
 
   has:
     eql:
-      positive: '%{context} should have %{expected} %{collection_name}'
-      negative: '%{context} should not have %{expected} %{collection_name}'
+      positive: '%{context} should have %{expected} %{collection}'
+      negative: '%{context} should not have %{expected} %{collection}'
     lte:
-      positive: '%{context} should have at most %{expected} %{collection_name}'
-      negative: '%{context} should not have at most %{expected} %{collection_name}'
+      positive: '%{context} should have at most %{expected} %{collection}'
+      negative: '%{context} should not have at most %{expected} %{collection}'
     gte:
-      positive: '%{context} should have at least %{expected} %{collection_name}'
-      negative: '%{context} should not have at least %{expected} %{collection_name}'
+      positive: '%{context} should have at least %{expected} %{collection}'
+      negative: '%{context} should not have at least %{expected} %{collection}'
     between:
-      positive: '%{context} should have between %{lower} and %{upper} %{collection_name}'
-      negative: '%{context} should not have between %{lower} and %{upper} %{collection_name}'
+      positive: '%{context} should have between %{lower} and %{upper} %{collection}'
+      negative: '%{context} should not have between %{lower} and %{upper} %{collection}'
 
   include:
     positive: '%{context} should be one of %{expected}'
