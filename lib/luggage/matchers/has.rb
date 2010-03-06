@@ -98,10 +98,10 @@ module Luggage
           collection = collection.__send__(@collection_name)
         end
 
-        if collection.respond_to?(:size)
-          actual = collection.size
-        elsif collection.respond_to?(:length)
+        if collection.respond_to?(:length)
           actual = collection.length
+        elsif collection.respond_to?(:size)
+          actual = collection.size
         else
           raise RuntimeError,
             'The given value is not a collection (it does not respond to ' \
@@ -219,7 +219,7 @@ module Luggage
       # @return [String]
       #
       def customise_error_values(values)
-        values[:collection] = @collection_desc || ''
+        values[:collection] = @collection_desc || 'items'
 
         if @relativity == :between
           values[:lower] = @expected.first
@@ -241,6 +241,9 @@ module Luggage
       #
       def method_missing(method, *args, &block)
         @collection_desc = ActiveSupport::Inflector.humanize(method).downcase
+
+        @collection_desc = ActiveSupport::Inflector.singularize(
+          @collection_desc) if @expected == 1
 
         unless method == :characters and ''.respond_to?(:characters)
           @collection_name = method

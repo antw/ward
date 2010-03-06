@@ -139,170 +139,7 @@ describe Luggage::Matchers::Has do
   #
 
   describe '#matches?' do
-    [:size, :length].each do |method|
-      describe "and the value responds to ##{method}" do
-
-        describe 'when no expected value is set' do
-          before(:all) do
-            @matcher = Luggage::Matchers::Has.new
-          end
-
-          it 'should pass if the collection has > 0 members' do
-            @matcher.should pass_matcher_with(mock(method => 1))
-          end
-
-          it 'should fail if the collection has 0 members' do
-            @matcher.should fail_matcher_with(mock(method => 0))
-          end
-        end
-
-        describe "with no collection name" do
-
-          describe 'when no relativity is set' do # defaults to :eql
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new(5)
-            end
-
-            it 'should fail if the collection has < n members' do
-              @matcher.should fail_matcher_with(mock(method => 4))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should fail if the collection has > n members' do
-              @matcher.should fail_matcher_with(mock(method => 6))
-            end
-          end
-
-          describe 'when relativity is :eql' do
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new.eql(5)
-            end
-
-            it 'should fail if the collection has < n members' do
-              @matcher.should fail_matcher_with(mock(method => 4))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should fail if the collection has > n members' do
-              @matcher.should fail_matcher_with(mock(method => 6))
-            end
-          end # when relativity is :eql
-
-          describe 'when relativity is :lte' do
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new.lte(5)
-            end
-
-            it "should pass if the collection has < n members" do
-              @matcher.should pass_matcher_with(mock(method => 4))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should fail if the collection has > n members' do
-              @matcher.should fail_matcher_with(mock(method => 6))
-            end
-          end # when relativity is :lte
-
-          describe 'when relativity is :gte' do
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new.gte(5)
-            end
-
-            it 'should fail if the collection has < n members' do
-              @matcher.should fail_matcher_with(mock(method => 4))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should pass if the collection has > n members' do
-              @matcher.should pass_matcher_with(mock(method => 6))
-            end
-          end # when relativity is :gte
-
-          describe 'when relativity is :between' do
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new.between(4..5)
-            end
-
-            it 'should fail if the collection has < n members' do
-              @matcher.should fail_matcher_with(mock(method => 3))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 4))
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should fail if the collection has > n members' do
-              @matcher.should fail_matcher_with(mock(method => 6))
-            end
-          end # when relativity is :between
-
-          describe 'when the relativity is inferred as between given a ' \
-              'range value' do
-            before(:all) do
-              @matcher = Luggage::Matchers::Has.new(4..5)
-            end
-
-            it 'should fail if the collection has < n members' do
-              @matcher.should fail_matcher_with(mock(method => 3))
-            end
-
-            it 'should pass if the collection has == n members' do
-              @matcher.should pass_matcher_with(mock(method => 4))
-              @matcher.should pass_matcher_with(mock(method => 5))
-            end
-
-            it 'should fail if the collection has > n members' do
-              @matcher.should fail_matcher_with(mock(method => 6))
-            end
-          end
-        end # no collection name
-
-        describe 'when a collection name is set' do
-          it 'should use the length of the collection' do
-            # The matcher will fail if it attempts to use the actual value's
-            # size, but will pass if it retrieves the size of the correct
-            # collection.
-            actual = mock(method => 0, :posts => mock(method => 5))
-
-            matcher = Luggage::Matchers::Has.new.eql(5).posts
-            matcher.should pass_matcher_with(actual)
-          end
-
-          it 'should ignore if if the owner does not respond' do
-            matcher = Luggage::Matchers::Has.new.eql(5).characters
-            matcher.should pass_matcher_with(mock(method => 5))
-          end
-        end # when a collection name is set
-
-      end # and the value responds to ##{method}
-    end # [size, length].each
-
-    describe 'when the expected value is :no' do
-      before(:all) do
-        @matcher = Luggage::Matchers::Has.new(:no).characters
-      end
-
-      it 'should pass with when the owner has 0 members' do
-        @matcher.should pass_matcher_with([])
-      end
-
-      it 'should fail when the owner has more than 0 members' do
-        @matcher.should fail_matcher_with([:a])
-      end
-    end
+    # Detailsd #matches? tests can be found in features/has_matcher*.feature
 
     it 'should raise an error if the collection is nil' do
       matcher = Luggage::Matchers::Has.new.eql(5)
@@ -311,8 +148,23 @@ describe Luggage::Matchers::Has do
       running_this.should raise_exception(RuntimeError, /not a collection/)
     end
 
+    it 'should call #length if available' do
+      actual = mock()
+      actual.should_receive(:length).once.and_return(5)
+      actual.should_not_receive(:size)
+
+      Luggage::Matchers::Has.new.eql(5).should pass_matcher_with(actual)
+    end
+
+    it 'should call #size if #length is not available' do
+      actual = mock()
+      actual.should_receive(:size).once.and_return(5)
+
+      Luggage::Matchers::Has.new.eql(5).should pass_matcher_with(actual)
+    end
+
     it 'should raise an error if the collection does not respond to ' \
-       ':size or :length' do
+       '#size or #length' do
       matcher = Luggage::Matchers::Has.new.eql(5)
 
       running_this = lambda { matcher.should pass_matcher_with(mock()) }

@@ -1,4 +1,3 @@
-@only
 Feature: Error messages when a validation fails
   In order to provide useful information when a validation fails
   I want to be able to retrieve a list of nicely worded error messages

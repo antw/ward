@@ -4,11 +4,9 @@
 #
 
 def defined_object
-  # Create a struct with the named attributes, then an instance with the
-  # values.
-  Struct.new(*@class_attributes).new(*@class_attributes.map do |attribute|
-    @instance_attributes[attribute]
-  end)
+  # Create an oject with the named attributes and values.
+  Luggage::Spec::Struct.new(*@class_attributes).new(
+    *@class_attributes.map { |attribute| @instance_attributes[attribute] })
 end
 
 Transform %r{^'(\w+)' attribute$} do |attribute|
