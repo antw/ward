@@ -45,6 +45,16 @@ module Luggage
         (actual - @expected).abs <= @delta
       end
 
+      # Adds extra information to the error message.
+      #
+      # @param  [String] error
+      # @return [String]
+      #
+      def customise_error_values(values)
+        values[:delta] = @delta
+        values
+      end
+
     end # CloseTo
   end # Matchers
 end # Luggage

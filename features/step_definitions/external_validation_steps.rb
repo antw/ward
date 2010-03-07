@@ -54,5 +54,13 @@ end
 
 Then %r{^the error on '([^']+)' should be '([^']+)'$} do |attribute, msg|
   result = validator_set.validate(defined_object)
-  result.errors.on(attribute.to_sym).should == [msg]
+
+  if msg[0].chr == '/' and msg[-1].chr == '/'
+    # Regexp.
+    result.errors.on(attribute.to_sym).length.should == 1
+    result.errors.on(attribute.to_sym).first.should =~ eval(msg)
+  else
+    # Exact string match.
+    result.errors.on(attribute.to_sym).should == [msg]
+  end
 end
