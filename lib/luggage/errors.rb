@@ -13,7 +13,7 @@ module Luggage
       #
       def messages
         @error_messages ||= YAML.load(
-          File.read(File.expand_path('../../../lang/en-US.yml', __FILE__)))
+          File.read(File.expand_path('../../../lang/en.yml', __FILE__)))
       end
 
       # Returns the unformatted error message for a matcher.
