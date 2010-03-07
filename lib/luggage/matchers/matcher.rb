@@ -26,7 +26,6 @@ module Luggage
       def initialize(expected = nil, *extra_args)
         @expected   = expected
         @extra_args = extra_args
-        @actual     = nil
       end
 
       # Returns whether the given value matches the expected value.
