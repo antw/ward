@@ -139,7 +139,7 @@ describe Luggage::Matchers::Has do
   #
 
   describe '#matches?' do
-    # Detailsd #matches? tests can be found in features/has_matcher*.feature
+    # Detailed #matches? tests can be found in features/has_matcher*.feature
 
     it 'should raise an error if the collection is nil' do
       matcher = Luggage::Matchers::Has.new.eql(5)
