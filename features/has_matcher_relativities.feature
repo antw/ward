@@ -1,5 +1,6 @@
 Feature: Has matcher relativities
-  In order something
+  In order to validate collections whose length may vary
+  I want to be able to validate that it has a minimum or maximum length
 
   Background:
     Given a class with a 'name' attribute
