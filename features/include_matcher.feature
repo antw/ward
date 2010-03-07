@@ -5,7 +5,7 @@ Feature: Include matcher
   # +one_of+ is also available as +included_in+
 
   Background:
-    Given a class with an 'level' attribute
+    Given a class with a 'level' attribute
     And using a validation set like
       """
       object.level.is.one_of([60, 70, 80])

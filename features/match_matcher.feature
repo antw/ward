@@ -3,7 +3,7 @@ Feature: Match matcher
   I want be able to validate attributes against a regular expression
 
   Background:
-    Given a class with an 'name' attribute
+    Given a class with a 'name' attribute
 
   Scenario Outline: When the expected value is a regexp and the actual value matches
     When using a validation set like
