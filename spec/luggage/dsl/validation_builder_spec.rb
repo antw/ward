@@ -27,11 +27,6 @@ describe Luggage::DSL::ValidationBuilder do
       validator.matcher.should be_a(Luggage::Matchers::EqualTo)
     end
 
-    it "should set an Exclude matcher when calling #excluded_from" do
-      validator = @builder.is.excluded_from([]).to_validator
-      validator.matcher.should be_a(Luggage::Matchers::Exclude)
-    end
-
     it "should set a Has matcher when calling #has" do
       validator = @builder.has.to_validator
       validator.matcher.should be_a(Luggage::Matchers::Has)
