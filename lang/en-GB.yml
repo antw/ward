@@ -1,5 +1,10 @@
 ---
 
+  generic:
+    inclusive_conjunction: 'and'
+    exclusive_conjunction: 'or'
+    list_seperator:        ','
+
   acceptance:
     positive: '%{context} should be accepted'
     negative: '%{context} should not be accepted'

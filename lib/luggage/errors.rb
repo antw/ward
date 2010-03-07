@@ -43,6 +43,67 @@ module Luggage
         end
       end
 
+      # Receives an array and formats it nicely, assuming that only one value
+      # is expected.
+      #
+      # @example One member
+      #   format_exclusive_list([1]) # => '1'
+      #
+      # @example Two members
+      #   format_exclusive_list([1, 2]) # => '1 or 2'
+      #
+      # @example Many members
+      #   format_exclusive_list([1, 2, 3]) # => '1, 2, or 3'
+      #
+      # @param [Enumerable] list
+      #   The list to be formatted.
+      #
+      # @return [String]
+      #
+      def format_exclusive_list(list)
+        format_list(list, messages['generic']['exclusive_conjunction'])
+      end
+
+      # Receives an array and formats it nicely, assuming that all values are
+      # expected.
+      #
+      # @example One member
+      #   format_inclusive_list([1]) # => '1'
+      #
+      # @example Two members
+      #   format_inclusive_list([1, 2]) # => '1 and 2'
+      #
+      # @example Many members
+      #   format_inclusive_list([1, 2, 3]) # => '1, 2, and 3'
+      #
+      # @param [Enumerable] list
+      #   The list to be formatted.
+      #
+      # @return [String]
+      #
+      def format_inclusive_list(list)
+        format_list(list, messages['generic']['inclusive_conjunction'])
+      end
+
+      private
+
+      # Formats a list.
+      #
+      # @see Luggage::Errors.format_exclusive_list
+      # @see Luggage::Errors.format_inclusive_list
+      #
+      def format_list(list, conjunction)
+        case list.size
+          when 0 then ''
+          when 1 then list.first.to_s
+          when 2 then "#{list.first.to_s} #{conjunction} #{list.last.to_s}"
+          else
+            as_strings = list.map { |value| value.to_s }
+            as_strings[-1] = "#{conjunction} #{as_strings[-1]}"
+            as_strings.join("#{messages['generic']['list_seperator']} ")
+        end
+      end
+
     end # class << self
 
     # Creates a new Errors instance.

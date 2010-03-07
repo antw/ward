@@ -39,6 +39,16 @@ module Luggage
         @expected.include?(actual)
       end
 
+      # Adds extra information to the error message.
+      #
+      # @param  [String] error
+      # @return [String]
+      #
+      def customise_error_values(values)
+        values[:expected] = Luggage::Errors.format_exclusive_list(@expected)
+        values
+      end
+
     end # Include
   end # Matchers
 end # Luggage

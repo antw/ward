@@ -1,5 +1,10 @@
 ---
 
+  generic:
+    inclusive_conjunction: 'and'
+    exclusive_conjunction: 'or'
+    list_seperator:        ','
+
   acceptance:
     positive: '%{context} should be accepted'
     negative: '%{context} should not be accepted'
@@ -31,8 +36,8 @@
       negative: '%{context} should not have between %{lower} and %{upper} %{collection}'
 
   include:
-    positive: '%{context} should be one of %{expected}'
-    negative: '%{context} should not be one of %{expected}'
+    positive: '%{context} should be %{expected}'
+    negative: '%{context} should not be %{expected}'
 
   match:
     positive: '%{context} format was invalid'

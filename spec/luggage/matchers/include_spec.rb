@@ -7,6 +7,11 @@ describe Luggage::Matchers::Include do
     matcher.should == Luggage::Matchers::Include
   end
 
+  it 'should be registered with :one_of' do
+    matcher = Luggage::Matchers.matchers[:one_of]
+    matcher.should == Luggage::Matchers::Include
+  end
+
   #
   # initialize
   #
@@ -31,18 +36,6 @@ describe Luggage::Matchers::Include do
   # matches?
   #
 
-  describe '#matches?' do
-    before(:all) do
-      @matcher  = Luggage::Matchers::Include.new([0, 1, 2])
-    end
-
-    it 'should pass if the actual value is included in the expectation' do
-      @matcher.should pass_matcher_with(1)
-    end
-
-    it 'should fail if the actual value is not included in the expectation' do
-      @matcher.should fail_matcher_with(3)
-    end
-  end # matches?
+  # #matches? tests can be found in features/include_matcher.feature
 
 end

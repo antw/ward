@@ -89,4 +89,43 @@ describe Luggage::Errors do
     end # when there is one error keyed on a context chain
 
   end # on
+
+  # Class methods ============================================================
+
+  describe '.format_exclusive_list' do
+    it 'should return an empty string when given an empty Array' do
+      Luggage::Errors.format_exclusive_list([]).should == ''
+    end
+
+    it 'should return "1" when given [1]' do
+      Luggage::Errors.format_exclusive_list([1]).should == '1'
+    end
+
+    it 'should return "1 or 2" when given [1, 2]' do
+      Luggage::Errors.format_exclusive_list([1, 2]).should == '1 or 2'
+    end
+
+    it 'should return "1, 2, or 3" when given [1, 2, 3]' do
+      Luggage::Errors.format_exclusive_list([1, 2, 3]).should == '1, 2, or 3'
+    end
+  end
+
+  describe '.format_inclusive_list' do
+    it 'should return an empty string when given an empty Array' do
+      Luggage::Errors.format_inclusive_list([]).should == ''
+    end
+
+    it 'should return "1" when given [1]' do
+      Luggage::Errors.format_inclusive_list([1]).should == '1'
+    end
+
+    it 'should return "1 or 2" when given [1, 2]' do
+      Luggage::Errors.format_inclusive_list([1, 2]).should == '1 and 2'
+    end
+
+    it 'should return "1, 2, or 3" when given [1, 2, 3]' do
+      Luggage::Errors.format_inclusive_list([1, 2, 3]).should == '1, 2, and 3'
+    end
+  end
+
 end

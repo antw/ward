@@ -78,6 +78,7 @@ module Luggage
     register :matches,       Match
     register :match,         Match
     register :nil,           Nil
+    register :one_of,        Include
     register :present,       Present
     register :satisfies,     Satisfy
     register :satisfy,       Satisfy
