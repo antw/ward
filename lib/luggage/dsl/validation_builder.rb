@@ -107,13 +107,14 @@ module Luggage
       # Will take the given message and use it to customise the matcher (if
       # one is set), set a matcher, or extend the context.
       #
-      # Normally I hate method_missing, but there's no alternative here since
-      # a user may register their own matchers later in the load process.
-      #
       # @return [Luggage::DSL::ValidatorBuilder]
       #   Returns self.
       #
       def method_missing(method, *args, &block)
+        # I'd normally shy away from using method_missing, but there's no
+        # good alternative here since a user may register their own matchers
+        # later in the load process.
+
         if @matcher
           @matcher.__send__(method, *args, &block)
         elsif Luggage::Matchers.matchers.has_key?(method)
