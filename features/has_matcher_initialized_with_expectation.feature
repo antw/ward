@@ -1,6 +1,6 @@
 Feature: Has matcher when initialized with an expected length
   In order allow the has matcher to read more like a natural language
-  I want to be able to ensure initialize the matcher with an expectation
+  I want to be able to initialize the matcher with an expectation
 
   Background:
     Given a class with a 'posts' attribute
