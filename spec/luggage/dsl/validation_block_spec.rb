@@ -14,47 +14,6 @@ describe Luggage::DSL::ValidationBlock do
     end # to_validator_set
 
   #
-  # .build
-  #
-
-  describe '.build' do
-    describe 'when no initial set is provided' do
-      it 'should add the validators to the set' do
-        dsl = Luggage::DSL::ValidationBlock.build do |object|
-          object.name.matches(/abc/)
-          object.name.length.is.equal_to(3)
-        end
-
-        # ValidatorSet doesn't have a size method, but does implement Enumerable
-        dsl.inject(0) { |c, *| c += 1 }.should == 2
-      end
-    end # when no initial set is provided
-
-    describe 'when an initial set is provided' do
-      before(:all) do
-        @initial = Luggage::DSL::ValidationBlock.build do |object|
-          object.name.matches(/abc/)
-          object.name.length.is.equal_to(3)
-        end
-
-        @set = Luggage::DSL::ValidationBlock.build(@initial) do |object|
-          object.name.present
-        end
-      end
-
-      it 'should add the new validators to a copy of the initial set' do
-        # ValidatorSet doesn't have a size method, but does implement Enumerable
-        @set.inject(0) { |c, *| c += 1 }.should == 3
-      end
-
-      it 'should return a copy of the initial set' do
-        @set.should_not == @initial
-        @initial.inject(0) { |c, *| c += 1 }.should == 2
-      end
-    end # when an initial set is provided
-  end # .build
-
-  #
   # method_missing
   #
 

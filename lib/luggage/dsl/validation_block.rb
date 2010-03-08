@@ -2,6 +2,8 @@ module Luggage
   module DSL
     # Creates one or more validators using a block.
     #
+    # @see Luggage::ValidatorSet.build
+    #
     # @example
     #
     #   # Builds a validation set with two validators
@@ -15,20 +17,6 @@ module Luggage
     #   end
     #
     class ValidationBlock < Support::BasicObject
-
-      # Builds a ValidatorSet using the given block.
-      #
-      # NOTE: Providing an existing ValidatorSet will result in a copy of that
-      # set being mutated; the original will not be changed.
-      #
-      # @param [Luggage::ValidatorSet] set
-      #   A ValidatorSet to which the built validators should be added.
-      #
-      # @return [Luggage::ValidatorSet]
-      #
-      def self.build(set = nil, &block)
-        new(set, &block).to_validator_set
-      end
 
       # Creates a new ValidationBlock instance.
       #

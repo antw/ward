@@ -11,6 +11,20 @@ module Luggage
   #
   class ValidatorSet
 
+    # Builds a ValidatorSet using the given block.
+    #
+    # NOTE: Providing an existing ValidatorSet will result in a copy of that
+    # set being mutated; the original will not be changed.
+    #
+    # @param [Luggage::ValidatorSet] set
+    #   A ValidatorSet to which the built validators should be added.
+    #
+    # @return [Luggage::ValidatorSet]
+    #
+    def self.build(set = nil, &block)
+      Luggage::DSL::ValidationBlock.new(set, &block).to_validator_set
+    end
+
     include Enumerable
 
     # Creates a new ValidatorSet.
