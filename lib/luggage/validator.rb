@@ -52,9 +52,9 @@ module Luggage
     #
     def initialize(context, matcher, options = {})
       @context, @matcher = context, matcher
-      @scenarios = Array(options[:scenarios] || :default)
+      @scenarios = Array(options[:scenarios] || :default).freeze
       @negative = options[:negative] || false
-      @message  = options[:message]
+      @message  = options[:message].freeze
     end
 
     # Determines if the validator is valid for the given record.
