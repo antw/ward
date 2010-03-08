@@ -5,13 +5,12 @@
 
 def validator_set
   if @validator_set.nil?
-    unless @validator_set_definition.nil?
-      # We're using "implicit validators" (see below). Build the set.
-      @validator_set = Luggage::DSL::ValidationBlock.build do |object|
-        eval(@validator_set_definition.join("\n"))
-      end
-    else
+    if @validator_set_definition.nil?
       raise 'No validator set defined'
+    else
+      @validator_set = Luggage::ValidatorSet.build do |object|
+        eval(Array(@validator_set_definition).join("\n"))
+      end
     end
   end
 
@@ -23,9 +22,7 @@ Transform %r{^'(\w+)' scenario$} do |scenario|
 end
 
 Given %r{(?:using )?a validation set like} do |definition|
-  @validator_set = Luggage::DSL::ValidationBlock.build do |object|
-    eval(definition)
-  end
+  @validator_set_definition = definition
 end
 
 Then %r{^the validation set should pass$} do
