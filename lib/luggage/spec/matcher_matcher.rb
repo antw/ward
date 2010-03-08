@@ -30,9 +30,9 @@ module Luggage
       ::Spec::Matchers.define :pass_matcher_with do |value|
         match do |matcher|
           case result = matcher.matches?(value)
-            when false then false
-            when Array then result.first
-            else            true
+            when false, nil then false
+            when Array      then !! result.first
+            else                 true
           end
         end
 
@@ -66,7 +66,7 @@ module Luggage
           if @expected_error and not error.eql?(@expected_error)
             @actual_error = error
             false
-          elsif result == false
+          elsif result == false || result.nil?
             true
           else
             false

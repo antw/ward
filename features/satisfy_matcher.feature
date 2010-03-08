@@ -35,6 +35,16 @@ Feature: Satisfy matcher
     Then the validation set should fail
       And the error on 'name' should be 'Name is invalid'
 
+  Scenario: Failing to match by returning nil
+    When using a validation set like
+      """
+      object.name.satisfies { |name| nil }
+
+      """
+    And the instance 'name' attribute is 'Michael Scott'
+    Then the validation set should fail
+      And the error on 'name' should be 'Name is invalid'
+
   Scenario: Failing to match and returning a specific error message
     When using a validation set like
       """

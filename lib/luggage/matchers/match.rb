@@ -21,7 +21,7 @@ module Luggage
       # @return [Boolean]
       #
       def matches?(actual)
-        not actual.match(@expected).nil?
+        actual.match(@expected)
       end
 
     end # Match

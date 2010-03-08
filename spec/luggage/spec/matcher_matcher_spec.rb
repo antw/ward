@@ -17,13 +17,6 @@ describe "Luggage RSpec matcher" do
         running.should_not raise_exception(@exception)
       end
 
-      it 'should pass when the matcher returns nil' do
-        @matcher.should_receive(:matches?).and_return(nil)
-
-        running = lambda { @matcher.should pass_matcher_with('') }
-        running.should_not raise_exception(@exception)
-      end
-
       it 'should pass when the matcher returns an arbitrary object' do
         @matcher.should_receive(:matches?).and_return(Object.new)
 
@@ -45,18 +38,25 @@ describe "Luggage RSpec matcher" do
         running.should raise_exception(@exception)
       end
 
+      it 'should fail when the matcher returns nil' do
+        @matcher.should_receive(:matches?).and_return(nil)
+
+        running = lambda { @matcher.should pass_matcher_with('') }
+        running.should raise_exception(@exception)
+      end
+
+      it 'should fail when the matcher returns [nil, ...]' do
+        @matcher.should_receive(:matches?).and_return([nil])
+
+        running = lambda { @matcher.should pass_matcher_with('') }
+        running.should raise_exception(@exception)
+      end
+
     end # with "should"
 
     describe 'with "should_not"' do
       it 'should fail when the matcher returns true' do
         @matcher.should_receive(:matches?).and_return(true)
-
-        running = lambda { @matcher.should_not pass_matcher_with('') }
-        running.should raise_exception(@exception)
-      end
-
-      it 'should fail when the matcher returns nil' do
-        @matcher.should_receive(:matches?).and_return(nil)
 
         running = lambda { @matcher.should_not pass_matcher_with('') }
         running.should raise_exception(@exception)
@@ -83,6 +83,20 @@ describe "Luggage RSpec matcher" do
         running.should_not raise_exception(@exception)
       end
 
+      it 'should pass when the matcher returns nil' do
+        @matcher.should_receive(:matches?).and_return(nil)
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
+      it 'should pass when the matcher returns [nil, ...]' do
+        @matcher.should_receive(:matches?).and_return([nil])
+
+        running = lambda { @matcher.should_not pass_matcher_with('') }
+        running.should_not raise_exception(@exception)
+      end
+
     end # with "should_not"
   end # pass_matcher_with
 
@@ -91,13 +105,6 @@ describe "Luggage RSpec matcher" do
       describe 'with "should"' do
         it 'should fail when the matcher returns true' do
           @matcher.should_receive(:matches?).and_return(true)
-
-          running = lambda { @matcher.should fail_matcher_with('') }
-          running.should raise_exception(@exception)
-        end
-
-        it 'should fail when the matcher returns nil' do
-          @matcher.should_receive(:matches?).and_return(nil)
 
           running = lambda { @matcher.should fail_matcher_with('') }
           running.should raise_exception(@exception)
@@ -123,18 +130,25 @@ describe "Luggage RSpec matcher" do
           running = lambda { @matcher.should fail_matcher_with('') }
           running.should_not raise_exception(@exception)
         end
+
+        it 'should pass when the matcher returns nil' do
+          @matcher.should_receive(:matches?).and_return([nil])
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
+
+        it 'should pass when the matcher returns [nil, ...]' do
+          @matcher.should_receive(:matches?).and_return([nil])
+
+          running = lambda { @matcher.should fail_matcher_with('') }
+          running.should_not raise_exception(@exception)
+        end
       end # with "should"
 
       describe 'with "should_not"' do
         it 'should pass when the matcher returns true' do
           @matcher.should_receive(:matches?).and_return(true)
-
-          running = lambda { @matcher.should_not fail_matcher_with('') }
-          running.should_not raise_exception(@exception)
-        end
-
-        it 'should pass when the matcher returns nil' do
-          @matcher.should_receive(:matches?).and_return(nil)
 
           running = lambda { @matcher.should_not fail_matcher_with('') }
           running.should_not raise_exception(@exception)
@@ -156,6 +170,20 @@ describe "Luggage RSpec matcher" do
 
         it 'should fail when the matcher returns [false, ...]' do
           @matcher.should_receive(:matches?).and_return([false])
+
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should fail when the matcher returns nil' do
+          @matcher.should_receive(:matches?).and_return(nil)
+
+          running = lambda { @matcher.should_not fail_matcher_with('') }
+          running.should raise_exception(@exception)
+        end
+
+        it 'should fail when the matcher returns [nil, ...]' do
+          @matcher.should_receive(:matches?).and_return([nil])
 
           running = lambda { @matcher.should_not fail_matcher_with('') }
           running.should raise_exception(@exception)

@@ -80,7 +80,7 @@ module Luggage
         @matcher.matches?(@context.value(record))
       end
 
-      result ^ negative? ? [ true, nil ] : [ false, error_for(error) ]
+      (!! result) ^ negative? ? [ true, nil ] : [ false, error_for(error) ]
     end
 
     # Returns if the validator should be run as part of the given scenario.
