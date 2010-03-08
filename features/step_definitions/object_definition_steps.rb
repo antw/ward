@@ -9,20 +9,20 @@ def defined_object
     *@class_attributes.map { |attribute| @instance_attributes[attribute] })
 end
 
-Transform %r{^'(\w+)' attribute$} do |attribute|
+Transform %r{^'(\w+[!\?]?)' attribute$} do |attribute|
   attribute.to_sym
 end
 
-Given %r{^a class with an? ('\w+' attribute)$} do |attribute|
+Given %r{^a class with an? ('\w+[!\?]?' attribute)$} do |attribute|
   @class_attributes, @instance_attributes = [], {}
   Given "the class also has a '#{attribute}' attribute"
 end
 
-Given %r{^the class also has an? ('\w+' attribute)$} do |attribute|
+Given %r{^the class also has an? ('\w+[!\?]?' attribute)$} do |attribute|
   @class_attributes << attribute
 end
 
-Given %r{^the instance ('\w+' attribute) is '(.*)'$} do |attribute, value|
+Given %r{^the instance ('\w+[!\?]?' attribute) is '(.*)'$} do |attribute, value|
   unless @class_attributes.include?(attribute)
     raise "The #{attribute.inspect} attribute was not defined"
   end

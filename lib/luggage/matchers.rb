@@ -6,6 +6,7 @@ require 'luggage/matchers/has'
 require 'luggage/matchers/include'
 require 'luggage/matchers/match'
 require 'luggage/matchers/nil'
+require 'luggage/matchers/predicate'
 require 'luggage/matchers/present'
 require 'luggage/matchers/satisfy'
 

@@ -119,6 +119,8 @@ module Luggage
           @matcher.__send__(method, *args, &block)
         elsif Luggage::Matchers.matchers.has_key?(method)
           @matcher = Luggage::Matchers.matchers[method].new(*args, &block)
+        elsif method.to_s =~ /\?$/
+          @matcher = Luggage::Matchers::Predicate.new(method, *args, &block)
         else
           @context << Luggage::Context.new(method)
         end
