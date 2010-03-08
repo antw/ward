@@ -1,4 +1,3 @@
-@only
 Feature: Satisfy matcher
   In order run arbitrary validations on the object
   I want to be able validate that an attribute satisfies a given expression
