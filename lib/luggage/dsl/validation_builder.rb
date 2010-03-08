@@ -113,11 +113,11 @@ module Luggage
       # @return [Luggage::DSL::ValidatorBuilder]
       #   Returns self.
       #
-      def method_missing(method, *extra_args, &block)
+      def method_missing(method, *args, &block)
         if @matcher
-          @matcher.__send__(method, *extra_args, &block)
+          @matcher.__send__(method, *args, &block)
         elsif Luggage::Matchers.matchers.has_key?(method)
-          @matcher = Luggage::Matchers.matchers[method].new(*extra_args)
+          @matcher = Luggage::Matchers.matchers[method].new(*args, &block)
         else
           @context << Luggage::Context.new(method)
         end

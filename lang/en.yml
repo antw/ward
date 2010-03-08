@@ -50,3 +50,7 @@
   present:
     positive: '%{context} should be present'
     negative: '%{context} should not be present'
+
+  satisfy:
+    positive: '%{context} is invalid'
+    negative: '%{context} is invalid'

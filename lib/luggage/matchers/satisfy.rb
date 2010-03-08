@@ -9,7 +9,11 @@ module Luggage
     # method will be run with it's return value used to determine if the
     # matcher passed.
     #
+    # Adding an explict error message is advised, since the message generated
+    # by Luggage isn't very helpful: "... is invalid".
+    #
     # @example Matching with a block
+    #
     #   class Record
     #     validate do |record|
     #       record.name.satisfies do |value, record|
@@ -18,15 +22,13 @@ module Luggage
     #     end
     #   end
     #
-    # @example Matching with a Symbol and method
+    # @example With a runtime error message
     #
     #   class Record
     #     validate do |record|
-    #       record.name.satisfies(:require_michael_scarn)
-    #     end
-    #
-    #     def require_michael_scarn
-    #       name == 'Michael Scarn'
+    #       record.name.satisfies do |value, record|
+    #         value == 'Michael Scarn' || [false, "Ooooh noooo"]
+    #       end
     #     end
     #   end
     #
@@ -38,7 +40,6 @@ module Luggage
       #   The expected value for the matcher.
       #
       def initialize(expected = nil, *extra_args, &block)
-        block ||= lambda { |value| not value.__send__(expected) == false }
         super(block, *extra_args)
       end
 
@@ -53,9 +54,9 @@ module Luggage
       #
       def matches?(actual, record = nil)
         if @expected.arity != 1
-          not @expected.call(actual, record) == false
+          @expected.call(actual, record)
         else
-          not @expected.call(actual) == false
+          @expected.call(actual)
         end
       end
 
