@@ -112,13 +112,6 @@ module Luggage
     # preference over any error returned by the matcher, or defiend in the
     # language files.
     #
-    # Formatting the error message is done in a two-stage process:
-    #
-    #   1. The matcher's #format_error method is called, allowing it to add
-    #      any values which are specific to the matcher.
-    #
-    #   2. The expected value and context are added.
-    #
     # @param  [nil, Symbol, String] key
     # @return [String]
     #
