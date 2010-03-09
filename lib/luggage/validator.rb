@@ -74,10 +74,19 @@ module Luggage
     def validate(record)
       # If the matches? method on the matcher takes two arguments, send in the
       # record as well as the value.
-      result, error = if @matcher.method(:matches?).arity != 1
+      result = if @matcher.method(:matches?).arity != 1
         @matcher.matches?(@context.value(record), record)
       else
         @matcher.matches?(@context.value(record))
+      end
+
+      result, error = if defined?(Rubinius)
+        # Rubinius treats any value which responds to #to_a as being
+        # array-like, thus multiple assignment breaks if the matcher returns
+        # such an object.
+        result.is_a?(Array) ? result : [result].flatten
+      else
+        result
       end
 
       (!! result) ^ negative? ? [ true, nil ] : [ false, error_for(error) ]

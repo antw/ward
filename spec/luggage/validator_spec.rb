@@ -102,6 +102,22 @@ describe Luggage::Validator do
         # Perhaps this is one for Cucumber?
         it 'should add the error to the record errors'
       end
+
+      # Rubinius.
+      describe 'when the matcher returns a non-array which responds to #to_a' do
+        before(:all) do
+          @validator.matcher.stub(:matches?).and_return(mock(:to_a => []))
+          @result = @validator.validate(mock(:name => ''))
+        end
+
+        it 'should return Array[true, ...]' do
+          @result.first.should be_true
+        end
+
+        it 'should return Array[..., nil]' do
+          @result[1].should be_nil
+        end
+      end
     end # when the matcher is positive
 
     describe 'when the validator is negative' do
@@ -141,6 +157,22 @@ describe Luggage::Validator do
 
         # Perhaps this is one for Cucumber?
         it 'should add the error to the record errors'
+      end
+
+      # Rubinius.
+      describe 'when the matcher returns a non-array which responds to #to_a' do
+        before(:all) do
+          @validator.matcher.stub(:matches?).and_return(mock(:to_a => []))
+          @result = @validator.validate(mock(:name => ''))
+        end
+
+        it 'should return Array[false, ...]' do
+          @result.first.should be_false
+        end
+
+        it 'should return Array[..., an_error]' do
+          @result[1].should_not be_nil
+        end
       end
     end # when the matcher is negative
 

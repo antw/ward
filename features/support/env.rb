@@ -15,6 +15,9 @@ module Luggage
   module Spec
     class Struct < ::Struct
 
+      undef_method :length
+      undef_method :size
+
       def self.new(*orig_attributes)
         attributes, aliases = [], {}
 
