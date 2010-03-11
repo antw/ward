@@ -30,11 +30,7 @@ module Luggage
     # @return [String]
     #
     def natural_name
-      return '' if @contexts.empty?
-
-      @contexts[1..-1].inject(@contexts.first.natural_name) do |name, context|
-        "#{name} #{context.natural_name.downcase}"
-      end
+      @contexts.map { |context| context.natural_name }.join(' ')
     end
 
     # Retrieves the value for the given +target+.

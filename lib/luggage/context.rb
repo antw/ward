@@ -41,7 +41,9 @@ module Luggage
     def initialize(attribute, &fetcher)
       @attribute = attribute.to_sym
       @fetcher = fetcher || lambda { |object| object.__send__(@attribute) }
-      @natural_name = ActiveSupport::Inflector.humanize(@attribute.to_s)
+
+      @natural_name =
+        ActiveSupport::Inflector.humanize(@attribute.to_s).downcase
     end
 
     # Returns the value of the context for the given target object.

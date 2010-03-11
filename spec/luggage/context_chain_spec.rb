@@ -72,7 +72,7 @@ describe Luggage::ContextChain do
       end
 
       it 'should return the context natural name' do
-        @chain.natural_name.should eql('Length')
+        @chain.natural_name.should eql('length')
       end
     end
 
@@ -84,7 +84,7 @@ describe Luggage::ContextChain do
       end
 
       it 'should join the natural names of each context' do
-        @chain.natural_name.should eql('Post name')
+        @chain.natural_name.should eql('post name')
       end
     end
   end

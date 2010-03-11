@@ -30,7 +30,7 @@ describe Luggage::Context do
     end
 
     it { should be_a(String) }
-    it { should eql('Full name') }
+    it { should eql('full name') }
   end
 
   #
