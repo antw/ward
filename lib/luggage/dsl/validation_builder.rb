@@ -59,6 +59,25 @@ module Luggage
         self
       end
 
+      # Sets the name to be used for the context in error messages.
+      #
+      # When Luggage generates error messages for you, it determines the
+      # 'context name' by joining the method names; for example 'name.length'
+      # becomes 'name length'.
+      #
+      # This isn't much use if you want to languages other than English in
+      # your application, so the 'context' method allows you to set a custom
+      # string to be used. You may provide a String, in which case it will be
+      # used literally, a Hash of {language => String}, or a Symbol
+      # identifying a string to be used from a language file.
+      #
+      # See the localisation documentation for more examples.
+      #
+      def context(name)
+        @context_name = name
+        self
+      end
+
       # Sets the scenarios under which the built validator should run.
       #
       # @param [Symbol, ...] scenarios
@@ -145,7 +164,8 @@ module Luggage
           'Validator was missing a matcher' if @matcher.nil?
 
         Luggage::Validator.new(@context, @matcher, :message => @message,
-          :scenarios => @scenarios, :negative => @negative)
+          :scenarios => @scenarios, :negative => @negative,
+          :context_name => @context_name)
       end
 
     end # Validate

@@ -58,3 +58,12 @@ Feature: Error messages when a validation fails
       """
     When the instance 'name' attribute is ''
     Then the error on 'name' should be 'Name had a whoopsie'
+
+  Scenario: Providing a custom name for the context
+    When using a validation set like
+      """
+      object.name.is.present.context('you')
+
+      """
+    When the instance 'name' attribute is ''
+    Then the error on 'name' should be 'You should be present'

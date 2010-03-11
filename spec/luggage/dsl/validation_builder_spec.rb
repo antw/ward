@@ -87,7 +87,21 @@ describe Luggage::DSL::ValidationBuilder do
   end
 
   #
-  # when setting a messages
+  # when setting a context name
+  #
+
+  describe '#message' do
+    before(:each) do
+      @builder = Luggage::DSL::ValidationBuilder.new.is.present
+    end
+
+    it 'should return the builder' do
+      @builder.context('Name').should be(@builder)
+    end
+  end
+
+  #
+  # when setting a message
   #
 
   describe '#message' do

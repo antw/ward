@@ -49,12 +49,15 @@ module Luggage
     # @option options [Hash{Symbol => String}, String] :message
     #   The error message to be used if the validator fails (see
     #   DSL::ValidationBuilder#message).
+    # @option options [String] :context_name
+    #   The name to be used for the context when generating error messages.
     #
     def initialize(context, matcher, options = {})
       @context, @matcher = context, matcher
       @scenarios = Array(options[:scenarios] || :default).freeze
       @negative = options[:negative] || false
       @message  = options[:message].freeze
+      @context_name = options[:context_name].freeze
     end
 
     # Determines if the validator is valid for the given record.
@@ -131,13 +134,11 @@ module Luggage
       initial = @message || Luggage::Errors.error_for(matcher, negative?, key)
 
       error = initial % matcher.customise_error_values(
-        :expected => matcher.expected, :context => context.natural_name)
+        :expected => matcher.expected,
+        :context  => @context_name || context.natural_name)
 
       error.strip!
-
-      # When validating the object itself (as may be the case with the has
-      # matcher), upcase the first character.
-      error.sub!(/^should/, 'Should')
+      error[0] = error[0].chr.upcase
 
       error
     end
