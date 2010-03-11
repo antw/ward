@@ -27,7 +27,7 @@ Feature: Match matcher
       """
     And the instance 'name' attribute is 'Dwigt'
     Then the validation set should fail
-      And the error on 'name' should be 'Name format was invalid'
+      And the error on 'name' should be 'Name format is invalid'
 
   Scenario: When the expected value is a String and the actual value matches
     When using a validation set like
@@ -46,4 +46,4 @@ Feature: Match matcher
       """
     And the instance 'name' attribute is 'Dwigt'
     Then the validation set should fail
-      And the error on 'name' should be 'Name format was invalid'
+      And the error on 'name' should be 'Name format is invalid'

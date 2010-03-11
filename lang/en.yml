@@ -40,8 +40,8 @@
     negative: '%{context} should not be %{expected}'
 
   match:
-    positive: '%{context} format was invalid'
-    negative: '%{context} format was invalid'
+    positive: '%{context} format is invalid'
+    negative: '%{context} format is invalid'
 
   nil:
     positive: '%{context} should be nil'
