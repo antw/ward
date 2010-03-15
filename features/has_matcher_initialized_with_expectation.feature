@@ -37,7 +37,7 @@ Feature: Has matcher when initialized with an expected length
       | [1]    |
       | [1, 2] |
 
-  Scenario: Initialized with n value and an incorrect member size
+  Scenario: Initialized with no value and an incorrect member size
     When using a validation set like
       """
       object.has.posts
