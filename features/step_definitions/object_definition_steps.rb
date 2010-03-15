@@ -3,10 +3,14 @@
 # objects which are later validated.
 #
 
+def object_builder
+  # Returns the ObjectBuilder instance for the current feature.
+  @object_builder ||= Luggage::Spec::ObjectBuilder.new
+end
+
 def defined_object
   # Create an oject with the named attributes and values.
-  Luggage::Spec::Struct.new(*@class_attributes).new(
-    *@class_attributes.map { |attribute| @instance_attributes[attribute] })
+  object_builder.to_instance
 end
 
 Transform %r{^'(\w+[!\?]?)' attribute$} do |attribute|
@@ -14,16 +18,15 @@ Transform %r{^'(\w+[!\?]?)' attribute$} do |attribute|
 end
 
 Given %r{^a class with an? ('\w+[!\?]?' attribute)$} do |attribute|
-  @class_attributes, @instance_attributes = [], {}
   Given "the class also has a '#{attribute}' attribute"
 end
 
 Given %r{^the class also has an? ('\w+[!\?]?' attribute)$} do |attribute|
-  @class_attributes << attribute
+  object_builder.attributes << attribute
 end
 
 Given %r{^the instance ('\w+[!\?]?' attribute) is '(.*)'$} do |attribute, value|
-  unless @class_attributes.include?(attribute)
+  unless object_builder.attributes.include?(attribute)
     raise "The #{attribute.inspect} attribute was not defined"
   end
 
@@ -31,6 +34,10 @@ Given %r{^the instance ('\w+[!\?]?' attribute) is '(.*)'$} do |attribute, value|
 
   # Attempt to evaluate the value. If the evaluation fails we assume that it
   # is a string which should be used literally.
-  @instance_attributes[attribute] =
+  object_builder.values[attribute] =
     begin eval(value) ; rescue NameError ; value ; end
+end
+
+Given %r{^the class has behaviour like$} do |behaviour|
+  object_builder.behaviours << behaviour
 end
