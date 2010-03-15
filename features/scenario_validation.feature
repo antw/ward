@@ -1,4 +1,3 @@
-@pending
 Feature: Validating objects in different scenarios
   In order to allow a user to alter the validators for an object
   I want to be able to define validators to run only at certain times

@@ -49,7 +49,8 @@ module Luggage
     #
     def valid?(record, scenario = :default)
       inject(true) do |result, validator|
-        validator.validate(record).first && result
+        (! validator.scenario?(scenario) or
+          validator.validate(record).first) and result
       end
     end
 
@@ -71,6 +72,7 @@ module Luggage
       errors = Luggage::Errors.new
 
       @validators.each do |validator|
+        next unless validator.scenario?(scenario)
         result, error = validator.validate(record)
         errors.add(validator.context, error) unless result == true
       end
