@@ -93,9 +93,12 @@ module Luggage
       # @return [Boolean]
       #
       def matches?(collection)
-        unless @collection_name.nil? or
-            not collection.respond_to?(@collection_name)
-          collection = collection.__send__(@collection_name)
+        unless @collection_name.nil?
+          if collection.respond_to?(@collection_name)
+            collection = collection.__send__(@collection_name)
+          elsif collection.respond_to?(@plural_collection_name)
+            collection = collection.__send__(@plural_collection_name)
+          end
         end
 
         if collection.respond_to?(:length)
@@ -246,7 +249,8 @@ module Luggage
           @collection_desc) if @expected == 1
 
         unless method == :characters and ''.respond_to?(:characters)
-          @collection_name = method
+          @collection_name, @plural_collection_name =
+            method, ActiveSupport::Inflector.pluralize(method.to_s).to_sym
         end
 
         self

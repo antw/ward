@@ -62,7 +62,6 @@ Feature: Has matcher
     Then the validation set should fail
       And the error on 'posts' should be 'Posts should have 2 members'
 
-  @pending
   Scenario: When using a singular collection name and the value responds to the plural
     When using a validation set like
       """
