@@ -7,13 +7,29 @@ module Luggage
 
     class << self
 
-      # Returns the en-US error message hash. TEMPORARY.
+      # Returns a localisation message.
       #
-      # @return [Hash]
+      # @param [keys] String
+      #   The key of the message to be returned from the current language
+      #   file.
       #
-      def messages
-        @error_messages ||= YAML.load(
-          File.read(File.expand_path('../../../lang/en.yml', __FILE__)))
+      # @return [String, nil]
+      #   Returns the message or nil if it couldn't be found.
+      #
+      # @example
+      #
+      #   Luggage::Errors.message('has.eql.positive')
+      #   # => '%{context} should have %{expected} %{collection}'
+      #
+      # @example Passing multiple keys as fallbacks.
+      #
+      #   Luggage::Errors.message(
+      #     'does.not.exist', 'has.eql.negative', 'has.eql.positive')
+      #
+      #   # => '%{context} should not have %{expected} %{collection}'
+      #
+      def message(*keys)
+        messages[ keys.detect { |key| messages.has_key?(key) } ]
       end
 
       # Returns the unformatted error message for a matcher.
@@ -33,14 +49,15 @@ module Luggage
       def error_for(matcher, negative, key = nil)
         return key if key.is_a?(String)
 
-        matcher_messages = messages[matcher.class.error_id]
-        matcher_messages = matcher_messages[key.to_s] unless key.nil?
-
-        if matcher_messages.nil?
-          '%{context} is invalid' # Uh-oh.
+        language_key = if key.nil?
+          "#{matcher.class.error_id}."
         else
-          matcher_messages[ negative ? 'negative' : 'positive' ]
+          "#{matcher.class.error_id}.#{key}."
         end
+
+        language_key << (negative ? 'negative' : 'positive')
+
+        message(language_key) || '%{context} is invalid'
       end
 
       # Receives an array and formats it nicely, assuming that only one value
@@ -61,7 +78,7 @@ module Luggage
       # @return [String]
       #
       def format_exclusive_list(list)
-        format_list(list, messages['generic']['exclusive_conjunction'])
+        format_list(list, message('generic.exclusive_conjunction'))
       end
 
       # Receives an array and formats it nicely, assuming that all values are
@@ -82,7 +99,7 @@ module Luggage
       # @return [String]
       #
       def format_inclusive_list(list)
-        format_list(list, messages['generic']['inclusive_conjunction'])
+        format_list(list, message('generic.inclusive_conjunction'))
       end
 
       private
@@ -100,8 +117,33 @@ module Luggage
           else
             as_strings = list.map { |value| value.to_s }
             as_strings[-1] = "#{conjunction} #{as_strings[-1]}"
-            as_strings.join("#{messages['generic']['list_seperator']} ")
+            as_strings.join("#{message('generic.list_seperator')} ")
         end
+      end
+
+      # Returns the en-US error message hash. TEMPORARY.
+      #
+      # @return [Hash]
+      #
+      def messages
+        @error_messages ||= normalise_messages(YAML.load(
+          File.read(File.expand_path('../../../lang/en.yml', __FILE__)) ))
+      end
+
+      # Transforms a hash of messages to a single hash using dot notation.
+      #
+      def normalise_messages(messages, transformed = {}, key_prefix = '')
+        messages.each do |key, value|
+          item_key = key_prefix.empty? ? key : "#{key_prefix}.#{key}"
+
+          if value.is_a?(Hash)
+            normalise_messages(value, transformed, item_key)
+          else
+            transformed[item_key] = value
+          end
+        end
+
+        transformed
       end
 
     end # class << self

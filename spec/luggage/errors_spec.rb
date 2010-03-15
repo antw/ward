@@ -92,6 +92,24 @@ describe Luggage::Errors do
 
   # Class methods ============================================================
 
+  describe '.message' do
+    it 'should return the message specified' do
+      message = Luggage::Errors.message('has.eql.positive')
+      message.should == '%{context} should have %{expected} %{collection}'
+    end
+
+    it 'should return the first matching message key' do
+      message = Luggage::Errors.message(
+        'does.not.exist', 'has.eql.negative', 'has.eql.positive')
+
+      message.should == '%{context} should not have %{expected} %{collection}'
+    end
+
+    it 'should return nil when no matching message is found' do
+      Luggage::Errors.message('does.not.exist').should be_nil
+    end
+  end
+
   describe '.format_exclusive_list' do
     it 'should return an empty string when given an empty Array' do
       Luggage::Errors.format_exclusive_list([]).should == ''
