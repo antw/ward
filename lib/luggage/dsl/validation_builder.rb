@@ -93,6 +93,23 @@ module Luggage
 
       alias_method :scenario, :scenarios
 
+      # Adds an attribute to the context chain.
+      #
+      # Useful your classes have attribute which you want to validate, and
+      # their name conflicts with a method on the validator DSL (e.g.
+      # "message").
+      #
+      # @param [Symbol] attribute
+      #   The attribute to be validated.
+      #
+      # @return [Luggage::DSL::ValidatorBuilder]
+      #   Returns self.
+      #
+      def attribute(attribute, *args, &block)
+        @context << Luggage::Context.new(attribute)
+        self
+      end
+
       # Set this as a positive expectation. Can be omitted.
       #
       # @example
@@ -141,7 +158,7 @@ module Luggage
         elsif method.to_s =~ /\?$/
           @matcher = Luggage::Matchers::Predicate.new(method, *args, &block)
         else
-          @context << Luggage::Context.new(method)
+          attribute(method, *args, &block)
         end
 
         self
