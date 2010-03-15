@@ -15,6 +15,8 @@ module Luggage
       # @return [Luggage::Spec::Struct]
       #
       def to_instance
+        @attributes = [:__placeholder__] if @attributes.empty?
+
         instance = Luggage::Spec::Struct.new(*@attributes).new(
           *@attributes.map { |attribute| @values[attribute] })
 

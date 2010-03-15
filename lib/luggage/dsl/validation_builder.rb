@@ -106,7 +106,7 @@ module Luggage
       #   Returns self.
       #
       def attribute(attribute, *args, &block)
-        @context << Luggage::Context.new(attribute)
+        @context << Luggage::Context.new(attribute, *args, &block)
         self
       end
 

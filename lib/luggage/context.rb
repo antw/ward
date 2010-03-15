@@ -33,14 +33,14 @@ module Luggage
     #
     # @param [#to_sym] attribute
     #   The name of the attribute to be validated.
-    # @param [Block] fetcher
-    #   An optional block to be used to fetch the context value from a target
-    #   object. If no block is given, it is assumed that the target has a
-    #   method name matching the attribute.
+    # @param [*] *context_args
+    #   Arguments to be used when calling the context.
+    # @param [Block] block
+    #   A block to be used when calling the context.
     #
-    def initialize(attribute, &fetcher)
+    def initialize(attribute, *context_args, &context_block)
       @attribute = attribute.to_sym
-      @fetcher = fetcher || lambda { |object| object.__send__(@attribute) }
+      @context_args, @context_block = context_args, context_block
 
       @natural_name =
         ActiveSupport::Inflector.humanize(@attribute.to_s).downcase
@@ -64,7 +64,7 @@ module Luggage
     # @return [Object]
     #
     def value(target)
-      @fetcher.call(target)
+      target.__send__(@attribute, *@context_args, &@context_block)
     end
 
   end # Context

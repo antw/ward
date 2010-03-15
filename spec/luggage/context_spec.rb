@@ -40,36 +40,17 @@ describe Luggage::Context do
   it { should have_public_method_defined(:value) }
 
   describe '#value' do
-    describe 'when the matcher has a custom value fetcher' do
-      before(:all) do
-        @matcher = Luggage::Context.new(:length) do |target|
-          target.length.to_s
-        end
-      end
-
-      it 'should retrieve the target value' do
-        @matcher.value('abc').should == '3'
-      end
-
-      it 'should raise an error when the target does not respond to the ' \
-         'target block' do
-        lambda { @matcher.value(nil) }.should raise_exception(NoMethodError)
-      end
+    before(:all) do
+      @matcher = Luggage::Context.new(:length)
     end
 
-    describe 'when the matcher does not have a custom value fetcher' do
-      before(:all) do
-        @matcher = Luggage::Context.new(:length)
-      end
+    it 'should retrieve the target value' do
+      @matcher.value('abc').should == 3
+    end
 
-      it 'should retrieve the target value' do
-        @matcher.value('abc').should == 3
-      end
-
-      it 'should raise an error when the target does not respond to the ' \
-         'target method' do
-        lambda { @matcher.value(nil) }.should raise_exception(NoMethodError)
-      end
+    it 'should raise an error when the target does not respond to the ' \
+       'target method' do
+      lambda { @matcher.value(nil) }.should raise_exception(NoMethodError)
     end
   end # value
 
