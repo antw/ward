@@ -1,7 +1,7 @@
 share_examples_for 'Has matcher relativity method' do
   before(:all) do
     @expectation ||= [5]
-    @matcher = Luggage::Matchers::Has.new
+    @matcher = Ward::Matchers::Has.new
     @return = @matcher.__send__(@method, *@expectation)
   end
 

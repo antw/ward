@@ -6,11 +6,10 @@ CLOBBER.include ['pkg', '*.gem', 'doc', 'coverage', 'measurements']
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name        = 'luggage'
-    gem.summary     = 'Luggage'
-    gem.homepage    = 'http://github.com/antw/luggage'
-    gem.description = 'Half suitcase, half homicidal maniac: '\
-                      'Object validation inspired by RSpec'
+    gem.name        = 'ward'
+    gem.summary     = 'Ward'
+    gem.homepage    = 'http://github.com/antw/ward'
+    gem.description = 'Object validation inspired by RSpec.'
 
     gem.author      = 'Anthony Williams'
     gem.email       = 'hi@antw.me'

@@ -1,35 +1,13 @@
-# Luggage
+# Ward
 
 ### What is it?
 
-> The Luggage is a fictional object that appears as a character in several of
-> the Discworld novels by Terry Pratchett. It is a large chest made of sapient
-> pearwood. It can produce hundreds of little legs protruding from its
-> underside and can move very fast if the need arises. It has been described
-> as "half suitcase, half homicidal maniac"
->
-> Its function is to act as both a luggage carrier and bodyguard for its
-> owner, against whom no threatening motion should be made. The Luggage is
-> fiercely defensive of its owner, and is generally homicidal in nature,
-> killing or eating several people and monsters and destroying various ships,
-> walls, doors, geographic features, and other obstacles throughout the
-> series. Its mouth contains "lots of big square teeth, white as sycamore, and
-> a pulsating tongue, red as mahogany." The inside area of The Luggage does
-> not appear to be constrained by its external dimensions, and contains many
-> conveniences: even when it has just devoured a monster, the next time it
-> opens the owner will find his underwear, neatly pressed and smelling
-> slightly of lavender.
->
-> --- Wikipedia's description of "The Luggage"
-
-### So... what _is_ it?
-
-Object validation inspired by RSpec.
+Object validation inspired by RSpec. As it turns out, Ward looks very little like RSpec, but that's where the inspiration came from nonetheless.
 
 ### What I hope to achieve
 
     class MyWonderfulObject
-      include Luggage::Validation
+      include Ward::Validation
       attr_accessor :name, :subdomain, :posts
 
       validate(:name).length.is(2..100)
@@ -60,7 +38,7 @@ Feb 24th 2010: "Getting there" :)
 
 #### Compatibility
 
-Luggage specs are run against:
+Ward specs are run against:
 
   * Ruby (MRI) 1.8.6 p399,
   * Ruby (MRI) 1.8.7 p249,

@@ -8,7 +8,7 @@ def validator_set
     if @validator_set_definition.nil?
       raise 'No validator set defined'
     else
-      @validator_set = Luggage::ValidatorSet.build do |object|
+      @validator_set = Ward::ValidatorSet.build do |object|
         eval(Array(@validator_set_definition).join("\n"))
       end
     end

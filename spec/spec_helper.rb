@@ -7,8 +7,8 @@ require 'rubygems'
 require 'spec'
 require 'spec/autorun'
 
-require 'luggage'
-require 'luggage/spec'
+require 'ward'
+require 'ward/spec'
 
 # Spec libraries.
 spec_libs = Dir.glob(File.expand_path(File.dirname(__FILE__)) + '/lib/**/*.rb')

@@ -1,4 +1,4 @@
-module Luggage
+module Ward
   module Spec
     # Used in the object definition steps; provides a version of Struct which
     # does not respond to length or size, and allows the use of predicate and
@@ -35,4 +35,4 @@ module Luggage
 
     end # Struct
   end # Spec
-end # Luggage
+end # Ward

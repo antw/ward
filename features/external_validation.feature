@@ -1,6 +1,6 @@
 Feature: Validating objects without "include"ing any modules
   In order to reduce the impact on a user's environment
-  I want to be able to validate an object which knows nothing about Luggage
+  I want to be able to validate an object which knows nothing about Ward
 
   Background:
     Given a class with a 'name' attribute

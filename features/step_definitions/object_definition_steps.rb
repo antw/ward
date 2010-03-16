@@ -5,7 +5,7 @@
 
 def object_builder
   # Returns the ObjectBuilder instance for the current feature.
-  @object_builder ||= Luggage::Spec::ObjectBuilder.new
+  @object_builder ||= Ward::Spec::ObjectBuilder.new
 end
 
 def defined_object
