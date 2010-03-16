@@ -84,9 +84,6 @@ describe Luggage::Validator do
         it 'should return Array[false, ...]' do
           @result.first.should be_false
         end
-
-        # Perhaps this is one for Cucumber?
-        it 'should add the error to the record errors'
       end
 
       describe 'when the matcher fails and return an error' do
@@ -98,9 +95,6 @@ describe Luggage::Validator do
         it 'should return Array[false, ...]' do
           @result.first.should be_false
         end
-
-        # Perhaps this is one for Cucumber?
-        it 'should add the error to the record errors'
       end
 
       # Rubinius.
@@ -140,9 +134,6 @@ describe Luggage::Validator do
         it 'should return Array[true, ...]' do
           @result.first.should be_true
         end
-
-        # Perhaps this is one for Cucumber?
-        it 'should add the error to the record errors'
       end
 
       describe 'when the matcher fails and return an error' do
@@ -154,9 +145,6 @@ describe Luggage::Validator do
         it 'should return Array[true, ...]' do
           @result.first.should be_true
         end
-
-        # Perhaps this is one for Cucumber?
-        it 'should add the error to the record errors'
       end
 
       # Rubinius.
