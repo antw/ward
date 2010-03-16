@@ -61,3 +61,9 @@ Then %r{^the error on '([^']+)' should be '([^']+)'$} do |attribute, msg|
     result.errors.on(attribute.to_sym).should == [msg]
   end
 end
+
+Then %r{^there should be (\S+) validation errors? on '([^']+)'$} do |number, attribute|
+  result = validator_set.validate(defined_object)
+  number = 0 if number == 'no'
+  (result.errors.on(attribute.to_sym) || []).size.should == number.to_i
+end
