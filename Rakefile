@@ -1,6 +1,8 @@
 require 'rake'
 require 'rake/clean'
 
+require File.expand_path('../lib/ward/version', __FILE__)
+
 CLOBBER.include ['pkg', '*.gem', 'doc', 'coverage', 'measurements']
 
 begin
@@ -24,6 +26,16 @@ begin
     gem.add_development_dependency 'rspec',     '>= 1.3.0'
     gem.add_development_dependency 'cucumber',  '>= 0.3'
     gem.add_development_dependency 'yard',      '>= 0.5'
+
+    gem.post_install_message =
+      "************************************************************\n" \
+      "\n" \
+      "Thank you for installing ward-#{Ward::VERSION}\n" \
+      "\n" \
+      "Please note that 0.1 is a preview release and considered\n" \
+      "unsuitable for use in a production environment.\n" \
+      "\n" \
+      "************************************************************\n" \
   end
 
   Jeweler::GemcutterTasks.new

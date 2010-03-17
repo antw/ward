@@ -18,6 +18,7 @@ require 'ward/errors'
 require 'ward/matchers'
 require 'ward/validator'
 require 'ward/validator_set'
+require 'ward/version'
 
 module Ward
   # Raise when a validator couldn't be built as something was missing.
