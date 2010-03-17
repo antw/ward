@@ -47,14 +47,8 @@ module Ward
       # @return [String]
       #
       def error_for(matcher, negative, key = nil)
-        return key if key.is_a?(String)
-
-        language_key = if key.nil?
-          "#{matcher.class.error_id}."
-        else
-          "#{matcher.class.error_id}.#{key}."
-        end
-
+        language_key = "#{matcher.class.error_id}."
+        language_key << "#{key}." unless key.nil?
         language_key << (negative ? 'negative' : 'positive')
 
         message(language_key) || '%{context} is invalid'
@@ -113,7 +107,7 @@ module Ward
         case list.size
           when 0 then ''
           when 1 then list.first.to_s
-          when 2 then "#{list.first.to_s} #{conjunction} #{list.last.to_s}"
+          when 2 then "#{list.first} #{conjunction} #{list.last}"
           else
             as_strings = list.map { |value| value.to_s }
             as_strings[-1] = "#{conjunction} #{as_strings[-1]}"

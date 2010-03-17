@@ -131,7 +131,8 @@ module Ward
     # @see Ward::Matchers::Matcher#format_error
     #
     def error_for(key)
-      initial = @message || Ward::Errors.error_for(matcher, negative?, key)
+      initial = @message || (key.is_a?(String) && key) ||
+        Ward::Errors.error_for(matcher, negative?, key)
 
       error = initial % matcher.customise_error_values(
         :expected => matcher.expected,
