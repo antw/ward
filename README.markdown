@@ -26,7 +26,7 @@ Note: The syntax described above isn't currently supported, though you can achie
       # ...
     end
 
-    Person.validators = Ward::ValidationSet.build do |person|
+    Person.validators = Ward::ValidatorSet.build do |person|
       person.subdomain.length.is(2..50)
       person.has.at_least(5).posts
       person.owner.name.is("Michael Scarn")
