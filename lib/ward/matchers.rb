@@ -11,6 +11,17 @@ require 'ward/matchers/present'
 require 'ward/matchers/satisfy'
 
 module Ward
+  # Matchers are used to determine whether a particular value is valid.
+  #
+  # Any class instance can be a validator so long as it responds to #matches?;
+  # the #matches? method should take at least one argument which will be the
+  # value of the object being validated. The matcher should then return a
+  # true-like value if the match is successful or either nil, false, or an
+  # array whose first member is false, if the match was not successful.
+  #
+  # In the event that your matcher returns an array, the second member will be
+  # used as the error message.
+  #
   module Matchers
 
     # Registers a matcher and it's slug.
@@ -82,5 +93,5 @@ module Ward
     register :satisfies,     Satisfy
     register :satisfy,       Satisfy
 
-  end
+  end # Matchers
 end # Ward

@@ -1,6 +1,6 @@
 module Ward
-  # ContextChain combines one or more contexts in order to be able to retrieve
-  # values from composed objects.
+  # ContextChain combines one or more {Context} instances in order to be able
+  # to retrieve values from composed objects.
   #
   # For example, if the chain contains two contexts, the first with a +length+
   # attribute, and the second with a +to_s+ attribute, the chain would resolve
@@ -17,9 +17,12 @@ module Ward
 
     # Returns the name of the attribute to be validated.
     #
-    # Returns the attribute for the first context.
+    # Returns the attribute for the first context. If the chain is empty,
+    # :base is always returned.
     #
     # @return [Symbol]
+    #
+    # @see Context#attribute
     #
     def attribute
       @contexts.empty? ? :base : @contexts.first.attribute
@@ -29,14 +32,16 @@ module Ward
     #
     # @return [String]
     #
+    # @see Context#natural_name
+    #
     def natural_name
       @contexts.map { |context| context.natural_name }.join(' ')
     end
 
-    # Retrieves the value for the given +target+.
+    # Returns the value of the chain for the given +target+ object.
     #
     # @param [Object] target
-    #   The object which holds the value to be retrieved
+    #   The object from which the value is to be retrieved.
     #
     # @return [Object]
     #

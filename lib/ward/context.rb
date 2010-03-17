@@ -2,9 +2,8 @@ module Ward
   # A class which represents "somewhere" from which a value can be retrieved
   # for validation.
   #
-  # A context initialized with a +:length+ attribute assumes, by default, that
-  # the value for validation can be retrieved by calling +length+ on the
-  # target object.
+  # A context initialized with a +:length+ attribute assumes that the value
+  # for validation can be retrieved by calling +length+ on the target object.
   #
   class Context
 
@@ -35,7 +34,7 @@ module Ward
     #   The name of the attribute to be validated.
     # @param [*] *context_args
     #   Arguments to be used when calling the context.
-    # @param [Block] block
+    # @param [Block] context_block
     #   A block to be used when calling the context.
     #
     def initialize(attribute, *context_args, &context_block)
@@ -46,7 +45,7 @@ module Ward
         ActiveSupport::Inflector.humanize(@attribute.to_s).downcase
     end
 
-    # Returns the value of the context for the given target object.
+    # Returns the value of the context for the given +target+ object.
     #
     # @example
     #
@@ -59,7 +58,7 @@ module Ward
     #   # => '3'
     #
     # @param [Object] target
-    #   The object which holds the value to be retrieved
+    #   The object from which the value is to be retrieved.
     #
     # @return [Object]
     #

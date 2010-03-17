@@ -1,5 +1,22 @@
 module Ward
   module Spec
+    # Since Ward matchers are permitted to return either false, or an Array
+    # whose first member is false, to indicate a failure, determining the
+    # status of a match attempt relies in you knowing this in advance:
+    #
+    #     result, error = matcher.matches?(value)
+    #     result.should be_false
+    #
+    # The helpers within the MatcherMatcher module simplify this situation:
+    #
+    #     matcher.should pass_matcher_with(value)
+    #     matcher.should fail_matcher_with(value)
+    #
+    # The +fail_matcher_with+ helper also provides the ability to check the
+    # error message returned by the matcher:
+    #
+    #     matcher.should fail_matcher_with(value, :too_short)
+    #
     module MatcherMatcher
 
       # Formats error messages for spec failures.

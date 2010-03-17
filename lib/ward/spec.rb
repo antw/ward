@@ -10,3 +10,8 @@
 #
 
 require 'ward/spec/matcher_matcher'
+
+module Ward
+  # Provides helpers and matchers for use in RSpec examples.
+  module Spec; end
+end

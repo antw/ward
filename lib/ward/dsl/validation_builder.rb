@@ -65,10 +65,10 @@ module Ward
       # 'context name' by joining the method names; for example 'name.length'
       # becomes 'name length'.
       #
-      # This isn't much use if you want to languages other than English in
-      # your application, so the 'context' method allows you to set a custom
-      # string to be used. You may provide a String, in which case it will be
-      # used literally, a Hash of {language => String}, or a Symbol
+      # This isn't much use if you want to support languages other than
+      # English in your application, so the 'context' method allows you to set
+      # a custom string to be used. You may provide a String, in which case it
+      # will be used literally, a Hash of +language => String+, or a Symbol
       # identifying a string to be used from a language file.
       #
       # See the localisation documentation for more examples.
