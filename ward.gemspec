@@ -106,7 +106,8 @@ Gem::Specification.new do |s|
      "tasks/features.rake",
      "tasks/rcov.rake",
      "tasks/spec.rake",
-     "tasks/yard.rake"
+     "tasks/yard.rake",
+     "ward.gemspec"
   ]
   s.has_rdoc = false
   s.homepage = %q{http://github.com/antw/ward}
