@@ -123,14 +123,14 @@ module Ward
 
       # Sets that the collection should be smaller than the expected value.
       #
-      # @param [Numeric] n
+      # @param [Numeric] expected
       #   The maximum size of the collection + 1.
       #
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def lt(n)
-        set_relativity(:lte, n - 1)
+      def lt(expected)
+        set_relativity(:lte, expected - 1)
       end
 
       alias_method :fewer_than, :lt
@@ -138,42 +138,42 @@ module Ward
 
       # Sets that the collection should be no larger than the expected value.
       #
-      # @param [Numeric] n
+      # @param [Numeric] expected
       #   The maximum size of the collection.
       #
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def lte(n)
-        set_relativity(:lte, n)
+      def lte(expected)
+        set_relativity(:lte, expected)
       end
 
       alias_method :at_most, :lte
 
       # Sets that the collection should be the exact size of the expectation.
       #
-      # @param [Numeric] n
+      # @param [Numeric] expected
       #   The exact expected size of the collection.
       #
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def eql(n)
-        set_relativity(:eql, n)
+      def eql(expected)
+        set_relativity(:eql, expected)
       end
 
       alias_method :exactly, :eql
 
       # Sets that the collection should be no smaller than the expected value.
       #
-      # @param [Numeric] n
+      # @param [Numeric] expected
       #   The minimum size of the collection.
       #
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def gte(n)
-        set_relativity(:gte, n)
+      def gte(expected)
+        set_relativity(:gte, expected)
       end
 
       alias_method :at_least, :gte
@@ -186,8 +186,8 @@ module Ward
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def gt(n)
-        set_relativity(:gte, n + 1)
+      def gt(expected)
+        set_relativity(:gte, expected + 1)
       end
 
       alias_method :greater_than, :gt
@@ -205,14 +205,14 @@ module Ward
       # @return [Ward::Matchers::Has]
       #   Returns self.
       #
-      def between(n, upper = nil)
-        if n.kind_of?(Range)
-          set_relativity(:between, n)
+      def between(expected, upper = nil)
+        if expected.kind_of?(Range)
+          set_relativity(:between, expected)
         elsif upper.nil?
           raise ArgumentError,
             'You must supply an upper boundary for the collection size'
         else
-          set_relativity(:between, (n..upper))
+          set_relativity(:between, (expected..upper))
         end
       end
 
