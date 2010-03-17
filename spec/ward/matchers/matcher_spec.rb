@@ -5,6 +5,11 @@ describe Ward::Matchers::Matcher do
 
   it { should have_public_method_defined(:extra_args) }
 
+  it 'should be registered with :valid' do
+    matcher = Ward::Matchers.matchers[:valid]
+    matcher.should == Ward::Matchers::Matcher
+  end
+
   #
   # initialize
   #
@@ -40,15 +45,5 @@ describe Ward::Matchers::Matcher do
   #
 
   it { should have_public_method_defined(:matches?) }
-
-  describe '#matches?' do
-    before(:each) do
-      @matcher = Ward::Matchers::Matcher.new(1)
-    end
-
-    it 'should pass' do
-      @matcher.matches?(nil).should be_true
-    end
-  end
 
 end

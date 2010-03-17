@@ -38,7 +38,7 @@ module Ward
       # @abstract
       #
       def matches?(actual)
-        true
+        actual
       end
 
       # Allows matcher subclasses to change -- or add values to -- the hash

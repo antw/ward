@@ -43,6 +43,10 @@
     positive: '%{context} format is invalid'
     negative: '%{context} format is invalid'
 
+  matcher:
+    positive: '%{context} is invalid'
+    negative: '%{context} was expected to be invalid'
+
   nil:
     positive: '%{context} should be nil'
     negative: '%{context} should not be nil'

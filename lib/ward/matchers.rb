@@ -79,19 +79,20 @@ module Ward
 
     # Register the built-in matchers.
 
-    register :accepted,      Acceptance
-    register :close_to,      CloseTo
-    register :equal_to,      EqualTo
-    register :has,           Has
-    register :have,          Has
-    register :included_in,   Include
-    register :matches,       Match
-    register :match,         Match
-    register :nil,           Nil
-    register :one_of,        Include
-    register :present,       Present
-    register :satisfies,     Satisfy
-    register :satisfy,       Satisfy
+    register :accepted,    Acceptance
+    register :close_to,    CloseTo
+    register :equal_to,    EqualTo
+    register :has,         Has
+    register :have,        Has
+    register :included_in, Include
+    register :matches,     Match
+    register :match,       Match
+    register :nil,         Nil
+    register :one_of,      Include
+    register :present,     Present
+    register :satisfies,   Satisfy
+    register :satisfy,     Satisfy
+    register :valid,       Matcher
 
   end # Matchers
 end # Ward
