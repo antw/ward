@@ -68,7 +68,6 @@ Note: The syntax described above isn't currently supported, though you can achie
 
 Ward specs are run against:
 
-  * Ruby (MRI) 1.8.6 p399,
   * Ruby (MRI) 1.8.7 p249,
   * Ruby (YARV) 1.9.1 p378,
   * JRuby 1.4.0,
