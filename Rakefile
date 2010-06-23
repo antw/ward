@@ -20,6 +20,7 @@ begin
     gem.has_rdoc    = false
 
     # Dependencies.
+    gem.add_dependency 'i18n',          '>= 0.4'
     gem.add_dependency 'activesupport', '>= 3.0.0.beta'
 
     # Development dependencies.

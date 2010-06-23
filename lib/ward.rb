@@ -1,7 +1,7 @@
 require 'yaml'
 
 # Add Ruby 1.9-style string interpolation.
-require 'active_support/core_ext/string/interpolation'
+require 'i18n/core_ext/string/interpolate'
 
 # Load the ActiveSupport inflector without the String extensions methods.
 require 'active_support/inflector/inflections'
